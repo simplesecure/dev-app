@@ -1,33 +1,188 @@
-.App {
-  text-align: center;
+input:not([type]):focus:not([readonly]), input[type="text"]:not(.browser-default):focus:not([readonly]), input[type="password"]:not(.browser-default):focus:not([readonly]), input[type="email"]:not(.browser-default):focus:not([readonly]), input[type="url"]:not(.browser-default):focus:not([readonly]), input[type="time"]:not(.browser-default):focus:not([readonly]), input[type="date"]:not(.browser-default):focus:not([readonly]), input[type="datetime"]:not(.browser-default):focus:not([readonly]), input[type="datetime-local"]:not(.browser-default):focus:not([readonly]), input[type="tel"]:not(.browser-default):focus:not([readonly]), input[type="number"]:not(.browser-default):focus:not([readonly]), input[type="search"]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+	border-bottom: 1px solid #809eff;
+	box-shadow: 0 1px 0 0 #809eff;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.page-margin {
+  margin-top: 100px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.btn-secondary {
+  background: #fff!important;
+  color: #003dff!important;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-secondary:hover {
+  background: #809eff!important;
+  color: #fff!important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background: #003dff;
+}
+
+.page-footer div div div a {
+  color: #fff!important;
+}
+
+.module-card {
+  height: 250px!important;
+}
+
+.module-name {
+  margin-top: 10px;
+  margin-left: -20px;
+}
+
+.module-info {
+  position: relative;
+  left: 98%;
+  top: -15px;
+  cursor: pointer;
+}
+
+.module-logo {
+  max-width: 20%;
+  margin: auto;
+  margin-left: 20px;
+}
+
+nav {
+  background: #fff!important;
+}
+
+.sidebar-logo {
+  max-width: 60%;
+  margin: auto;
+}
+
+.nav-logo {
+  max-width: 30%;
+  margin: auto;
+  padding-top: 15px;
+}
+
+a {
+  color: #809eff!important;
+}
+
+.link-button {
+  background: none;
+  color: inherit;
+  color: #809eff;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+}
+
+.logo {
+  max-width: 40%;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.row{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.masthead-text{
+  height: 300px;
+}
+
+.form-control{
+  height: 45px;
+}
+
+.login-or {
+    position: relative;
+    font-size: 18px;
+    color: #aaa;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
-  to {
-    transform: rotate(360deg);
+  .span-or {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -2px;
+    margin-left: -25px;
+    background-color: #fff;
+    width: 50px;
+    text-align: center;
   }
+  .hr-or {
+    background-color: #cdcdcd;
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
 }
+#login-dp .help-block{
+    font-size:12px    
+}
+
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc 
+}
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}
+.cardbox {
+  padding: 45px;
+  max-width: 40%;
+  margin: auto;
+}
+
+.btn-primary {
+  background: #003dff!important;
+}
+
+.note {
+  font-size: 10px;
+}
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}
+
+
+
+

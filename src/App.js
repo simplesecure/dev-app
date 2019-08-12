@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { getGlobal } from 'reactn';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Home from './containers/Home';
+import Stats from './components/Stats';
+import Modules from './components/Modules';
+import Account from './components/Account';
+import SideNav from './components/SideNav';
+import NavBar from './components/NavBar';
 import './App.css';
 
 function App() {
+  const { isSignedIn } = getGlobal();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <div>
+          <NavBar />
+          {
+            isSignedIn ? 
+            <SideNav />
+            : 
+            <div />
+          }
+          <Route exact path='/' component={Home} />
+          <Route exact path='/modules' component={isSignedIn ? Modules : Home} />
+          <Route exact path='/account' component={isSignedIn ? Account : Home} />
+          <Route exact path='/stats' component={isSignedIn ? Stats : Home} />
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
