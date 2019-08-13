@@ -1,15 +1,92 @@
-export function handleSignUp() {
+import { createUserAccount, login } from 'simpleid-js-sdk';
+import { setGlobal, getGlobal } from 'reactn';
+const config = {
+  apiKey: "123345",
+  devUsername: "",
+  authProviders: ['blockstack'], 
+  storageProviders: [], 
+  appOrigin: "https://dev.simpleid.xyz", 
+  scopes: ['publish_data', 'store_write', 'email'], 
+  isDev: true 
+}
+export async function handleSignUp(e) {
+  document.getElementById('error-message').innerText = "";
+  e.preventDefault();
+  setGlobal({ loading: true });
+  const credObj = {
+    id: document.getElementById('username-input-signup').value,
+    password: document.getElementById('password-input-signup').value,
+    hubUrl: "https://hub.blockstack.org", 
+    email: document.getElementById('email-input-signup').value
+  }
+  try {
+    const account = await createUserAccount(credObj, config);
+    console.log(account);
+    if(account.message === "name taken") {
+      setGlobal({ loading: false });
+      document.getElementById('error-message').innerText = "Sorry, that name has already been registered";
+    } else {
+      setGlobal({
+        screen: "verification"
+      });
+      localStorage.setItem('blockstack-session', JSON.stringify(account.body.store.sessionData))
+    }
+  } catch(err) {
+    console.log(err);
+    setGlobal({
+      screen: "login"
+    })
+  }
+  
 
 }
 
-export function handleSignIn() {
-
+export async function handleSignIn(e) {
+  e.preventDefault();
+  setGlobal({ loading: true });
+  const credObj = {
+    id: document.getElementById('username-input-signin').value,
+    password: document.getElementById('password-input-signin').value,
+    hubUrl: "https://hub.blockstack.org"
+  }
+  const params = {
+    credObj,
+    appObj: config,
+    userPayload: {}
+  }
+  try {
+    const signIn = await login(params);
+    console.log(signIn);
+    if(signIn.verified) {
+      setGlobal({
+        screen: ""
+      })
+    } else {
+      setGlobal({
+        screen: "verification"
+      })
+    }
+    localStorage.setItem('blockstack-session', JSON.stringify(signIn.body.store.sessionData))
+  } catch(err) {
+    console.log(err);
+    setGlobal({
+      screen: "login"
+    })
+  }
 }
 
-export function createNewProject() {
-
+export function handleSignOut(e) {
+  console.log("signing out...")
+  localStorage.removeItem('blockstack-session');
+  localStorage.removeItem('simpleIDVerification');
+  window.location.reload();
 }
 
-export function loadProjects() {
-  //Need to call our to Firebase to load the projects
+export function checkAccountPlan() {
+  const account = getGlobal().account;
+  if(account.isUpgraded) {
+    return true;
+  } else {
+    return false;
+  }
 }

@@ -7,19 +7,22 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const appConfig = new AppConfig(['store_write', 'publish_data', 'email']);
-const userSession = new UserSession({ appConfig })
+const userSession = new UserSession({ appConfig });
+const userVerified = JSON.parse(localStorage.getItem('simpleIDVerification'));
 
 setGlobal({
+  account: {},
   instance: {},
-  isSignedIn: true, 
+  isSignedIn: userSession.isUserSignedIn() ? true : false, 
   userSession,
-  screen: "login", 
+  screen: userVerified === false ? "verification" : "login", 
   moduleChanges: false, 
   projects: [],
   modules: {
     auth: [],
     storage: []
-  }
+  }, 
+  loading: false
 });
 
 ReactDOM.render(<App />, document.getElementById('root'));

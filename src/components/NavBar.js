@@ -2,6 +2,7 @@ import React from 'reactn';
 import { Link } from 'react-router-dom';
 import logo from '../assets/img/simpleid_black_logo.png';
 import { openSideNav } from '../actions/nav';
+import { handleSignOut } from '../actions/account';
 
 export default class NavBar extends React.Component {
   render() {
@@ -11,7 +12,11 @@ export default class NavBar extends React.Component {
         <div className="nav-wrapper">
           <Link to={'/'} className="brand-logo center"><img className="nav-logo" src={logo} alt="simpleid logo" /></Link>
           <ul id="nav-not-mobile" className="left">
-            <li><button onClick={openSideNav} className="link-button"><i className="black-text material-icons">menu</i></button></li>
+            {
+              isSignedIn ? 
+              <li><button onClick={openSideNav} className="link-button"><i className="black-text material-icons">menu</i></button></li> : 
+              <li className="hide"/>
+            }
           </ul>
           <ul id="nav-mobile" className="right">
             {
@@ -21,8 +26,8 @@ export default class NavBar extends React.Component {
             }
             {
               isSignedIn ? 
-              <li><button className="link-button">Sign Out</button></li> : 
-              <li><button className="link-button">Sign In</button></li>
+              <li><button onClick={handleSignOut} className="link-button">Sign Out</button></li> : 
+              <li className="hide" />
             }
           </ul>
         </div>

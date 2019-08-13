@@ -82,6 +82,11 @@ class Modules extends React.Component {
                           </div>
                         </div>
                       </div>
+                      {
+                        modules.storage.indexOf(prov.id) > -1 ? 
+                        <i className="green-text material-icons module-check">check_circle</i>:
+                        <div />
+                      }
                     </div>
                   </div>
                 )
