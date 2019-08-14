@@ -1,11 +1,13 @@
 import React, { getGlobal } from 'reactn';
 import Account from '../components/Account';
 import Login from './Login';
-const userVerified = true//JSON.parse(localStorage.getItem('simpleIDVerification'));
+let userVerified;
 
 function Home() {
-  const { isSignedIn } = getGlobal();
-  console.log(isSignedIn);
+  const { isSignedIn, userSession } = getGlobal();
+  if(isSignedIn) {
+    userVerified = userSession.loadUserData().devConfig.isVerified;
+  }
   return (
     <div>
       {

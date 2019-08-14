@@ -3,6 +3,14 @@ import SignIn from '../components/SignIn';
 import SignUp from '../components/SignUp';
 
 class Login extends React.Component {
+  componentDidMount() {
+    const { userSession } = this.global;
+    if(userSession.isUserSignedIn()) {
+      if(userSession.loadUserData().devConfig.isVerified !==true) {
+        setGlobal({screen: "verification"});
+      }
+    }
+  }
   switchScreen = (screen) => {
     setGlobal({
       screen

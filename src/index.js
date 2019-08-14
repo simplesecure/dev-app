@@ -8,15 +8,13 @@ import * as serviceWorker from './serviceWorker';
 
 const appConfig = new AppConfig(['store_write', 'publish_data', 'email']);
 const userSession = new UserSession({ appConfig });
-const userVerified = userSession.loadUserData().devConfig.isVerified;
-console.log(userVerified);
 
 setGlobal({
   account: {},
   instance: {},
   isSignedIn: userSession.isUserSignedIn() ? true : false, 
   userSession,
-  screen: userVerified === false ? "verification" : "login", 
+  screen: "login", 
   moduleChanges: false, 
   projects: [],
   modules: {
@@ -24,7 +22,7 @@ setGlobal({
     storage: []
   }, 
   loading: false, 
-  isUpgraded: userSession.loadUserData().devConfig ? userSession.loadUserData().devConfig.isUpgraded : false
+  isUpgraded: false
 });
 ReactDOM.render(<App />, document.getElementById('root'));
 

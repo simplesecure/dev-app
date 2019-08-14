@@ -7,6 +7,8 @@ const config = {
   appOrigin: "https://app.simpleid.xyz", 
   scopes: ['publish_data', 'store_write', 'email'], 
   isDev: true, 
+  apiKey: "-LmCb96-TquOlN37LpM0", 
+  devId: "imanewdeveloper", 
   development: true
 }
 export async function handleSignUp(e) {
@@ -37,8 +39,6 @@ export async function handleSignUp(e) {
       screen: "login"
     })
   }
-  
-
 }
 
 export async function handleSignIn(e) {
