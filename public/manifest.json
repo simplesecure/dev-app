@@ -8,15 +8,10 @@
       "type": "image/x-icon"
     },
     {
-      "src": "./simpleid_mark.black.png",
+      "src": "./simpleid_mark_black.png",
       "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "./simpleid_mark.black.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }	    
+      "sizes": "400x400"
+    }
   ],
   "start_url": ".",
   "display": "standalone",
