@@ -6,12 +6,25 @@ import { checkAccountPlan } from '../actions/account';
 import { Modal, TextInput } from 'react-materialize';
 
 class Account extends React.Component {
+  upgradeModal = () => {
+    document.getElementById('upgradeButton').click();
+  }
   render() {
-    const { projects, modules } = this.global;
+    const { projects, modules, isUpgraded } = this.global;
     return (
       <div className="page-margin">
         <div className="container">
           <div className="row">
+            <div style={{marginBottom: "20px"}} className="col s12">
+              <h3>Account</h3>
+              {
+                isUpgraded ? 
+                <p>You may create multiple projects and select multiple modules to include in your project.</p> : 
+                <div>
+                  <p>Your free account allows you to create one project with Blockstack Authentication and Blockstack Storage. If you'd like to create additional projects or use additional modules, <button style={{color: "#fff", textDecoration: "underline"}} className="link-button" onClick={this.upgradeModal}>please upgrade</button>.</p>
+                </div>
+              }
+            </div>
             <div className="col s12 m6">
               {
                 checkAccountPlan() || projects.length < 1 ? 

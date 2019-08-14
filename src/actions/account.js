@@ -106,3 +106,8 @@ export async function verifyAccount(verificationID) {
   console.log(update);
   return update;
 }
+
+export function newKey() {
+  //requires existing key to be sent
+  //need to call out to the server, generate a new key, return the key along with the account config object
+}

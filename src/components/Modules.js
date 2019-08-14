@@ -11,9 +11,12 @@ class Modules extends React.Component {
       moduleSelection: "auth"
     }
   }
+  upgradeModal = () => {
+    document.getElementById('upgradeButton').click();
+  }
 
   renderModuleSelector() {
-    const { modules } = this.global;
+    const { modules, isUpgraded } = this.global;
     const { moduleSelection } = this.state;
     if(moduleSelection === "auth") {
       return (
@@ -25,8 +28,8 @@ class Modules extends React.Component {
               authProviders.map(provider => {
                 const header = `${provider.name} Module Info`
                 return (
-                  <div onClick={() => addModule('auth', provider.id)} style={{cursor: "pointer"}} key={provider.id} className="col s12 m6 l6">
-                    <div className="card-panel module-card small black-text">
+                  <div onClick={provider.id !== "blockstack" ? isUpgraded !== true ? this.upgradeModal : () => addModule('auth', provider.id) : () => addModule('auth', provider.id)} style={{cursor: "pointer"}} key={provider.id} className="col s12 m6 l6">
+                    <div className={provider.id !== "blockstack" ? isUpgraded !== true ? "card-panel module-card grey small black-text" : "card-panel module-card small black-text" : "card-panel module-card small black-text"}>
                       <Modal className="black-text" header={header} trigger={
                         <span className="module-info"><i className="material-icons">info</i></span>
                         }>
@@ -39,6 +42,11 @@ class Modules extends React.Component {
                           </div>
                           <div className="col s6">
                             <h6 className="module-name">{provider.name}</h6>
+                            {
+                              provider.id !== "blockstack" ? isUpgraded !== true ? 
+                              <span style={{fontSize: "12px", marginTop: "20px"}}>Upgrade to use this module</span> : 
+                              <div /> : <div />
+                            }
                           </div>
                         </div>
                       </div>
@@ -65,8 +73,8 @@ class Modules extends React.Component {
               storageProviders.map(prov => {
                 const header = `${prov.name} Module Info`
                 return (
-                  <div onClick={() => addModule('storage', prov.id)} style={{cursor: "pointer"}} key={prov.id} className="col s12 m6 l6">
-                    <div className="card-panel module-card small black-text">
+                  <div onClick={prov.id !== "blockstack" ? isUpgraded !== true ? this.upgradeModal : () => addModule('storage', prov.id) : () => addModule('storage', prov.id)} style={{cursor: "pointer"}} key={prov.id} className="col s12 m6 l6">
+                    <div className={prov.id !== "blockstack" ? isUpgraded !== true ? "card-panel module-card grey small black-text" : "card-panel module-card small black-text" : "card-panel module-card small black-text"}>
                       <Modal className="black-text" header={header} trigger={
                         <span className="module-info"><i className="material-icons">info</i></span>
                         }>
@@ -79,6 +87,11 @@ class Modules extends React.Component {
                           </div>
                           <div className="col s6">
                             <h6 className="module-name">{prov.name}</h6>
+                            {
+                              prov.id !== "blockstack" ? isUpgraded !== true ? 
+                              <span style={{fontSize: "12px", marginTop: "20px"}}>Upgrade to use this module</span> : 
+                              <div /> : <div />
+                            }
                           </div>
                         </div>
                       </div>
@@ -107,7 +120,7 @@ class Modules extends React.Component {
           <div style={{marginBottom: "50px"}}>
             <h4>Modules</h4>
             <p style={{marginBottom: "40px"}}>You can select a combination of authentication and storage modules. You are restricted by your plan, so if you hit a limit and need more, please upgrade.</p>
-            <button onClick={() => this.setState({ moduleSelection: "auth" })} style={moduleSelection === "auth" ? {textDecoration: "underline"} : {}} className="link-button white-text">Authentication Modules</button><button onClick={() => this.setState({ moduleSelection: "storage" })} style={moduleSelection === "storage" ? {textDecoration: "underline"} : {}} className="link-button white-text">Storage Modules</button>
+            <button onClick={() => this.setState({ moduleSelection: "auth" })} style={moduleSelection === "auth" ? {textDecoration: "underline", marginRight: "10px"} : {marginRight: "10px"}} className="link-button white-text">Authentication Modules</button><button onClick={() => this.setState({ moduleSelection: "storage" })} style={moduleSelection === "storage" ? {textDecoration: "underline"} : {}} className="link-button white-text">Storage Modules</button>
           </div>
           {this.renderModuleSelector()}
         </div>

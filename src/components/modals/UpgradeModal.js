@@ -1,11 +1,25 @@
 import React from 'reactn';
 import { Modal } from 'react-materialize';
+import InfoModal from './InfoModal';
 
 function UpgradeModal() {
-
   return (
-    <Modal className="black-text" header="Upgrade Account" trigger={<button className="btn btn-primary">Upgrade</button>}>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+    <Modal className="black-text" header="Upgrade Account" trigger={<button id="upgradeButton" className="btn btn-primary">Upgrade</button>}>
+      <h5>$9 per month (USD)</h5>
+      <p>Features:</p>
+      <ul>
+        <li>Up to 5 Projects</li>
+        <li>Unlimited Modules</li>
+        <li>5gb Pinned IPFS Storage via Pinata</li>
+        <li>Email Support</li>
+        <li>1,000 active users 
+          <span>
+            <InfoModal type="userInfo" />
+          </span>
+        </li>
+      </ul>
+      <p>Need more? <a href="https://simpleid.xyz" target="_blank" rel="noreferrer noopener">Contact us</a> to learn about our Enterprise packages.</p>
+      <button className="btn-primary btn">Sign Up Now</button>
     </Modal>
   );
 }

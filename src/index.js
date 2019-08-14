@@ -23,7 +23,8 @@ setGlobal({
     auth: [],
     storage: []
   }, 
-  loading: false
+  loading: false, 
+  isUpgraded: userSession.loadUserData().devConfig ? userSession.loadUserData().devConfig.isUpgraded : false
 });
 ReactDOM.render(<App />, document.getElementById('root'));
 

@@ -15,7 +15,7 @@ export default class NavBar extends React.Component {
           <ul id="nav-not-mobile" className="left">
             {
               isSignedIn ? 
-              <li><button onClick={openSideNav} className="link-button"><i className="black-text material-icons">menu</i></button></li> : 
+              <li><button style={{marginLeft: "10px"}} onClick={openSideNav} className="link-button"><i className="black-text material-icons">menu</i></button></li> : 
               <li className="hide"/>
             }
           </ul>
@@ -29,7 +29,7 @@ export default class NavBar extends React.Component {
             }
             {
               isSignedIn ? 
-              <li><button onClick={handleSignOut} className="link-button">Sign Out</button></li> : 
+              <li><button style={{marginLeft: "15px", marginRight: "15px"}} onClick={handleSignOut} className="link-button">Sign Out</button></li> : 
               <li className="hide" />
             }
           </ul>

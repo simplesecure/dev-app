@@ -1,9 +1,12 @@
 import React from 'reactn';
+import { Modal, TextInput } from 'react-materialize';
+import { newKey } from '../actions/account';
+import { deleteProject } from '../actions/projects';
 
 class Projects extends React.Component {
   render() {
-    const { projects } = this.global;
-    console.log(projects);
+    const { projects, userSession } = this.global;
+
     return (
       <div>
         {
@@ -20,8 +23,23 @@ class Projects extends React.Component {
                     </div>
                     <div className="col s6">
                       <div>
-                        <button className="btn btn-primary">View Project</button> <br/>
-                        <button style={{marginTop: "20px"}} className="link-button red-text">Delete Project</button>
+                        <Modal className="black-text" header={proj.name} trigger={<button className="btn btn-primary">View Project</button>}>
+                          <h5>Project Created: </h5>
+                          <p>{proj.createdDate}</p>
+                          <h5>Developer ID</h5>
+                          <div style={{cursor: "pointer"}}>
+                            <TextInput disabled={true} icon="content_copy" value={userSession.loadUserData().identityAddress} />
+                          </div>
+                          <h5>API Key</h5>
+                          <p>123456</p>
+                          <button onClick={newKey} className="btn black">Generate New Key</button>
+                        </Modal>
+                        <br/>
+                        <Modal className="black-text" header={`Delete ${proj.name}?`} trigger={<button style={{marginTop: "20px"}} className="link-button red-text">Delete Project</button>}>
+                          <h5>Are you sure?</h5>
+                          <p>This cannot be done and any applications associated with this project will stop working.</p>
+                          <button onClick={() => deleteProject(proj.id)} className="btn red">Yes, Delete</button>
+                        </Modal>
                       </div>
                     </div>
                   </div>

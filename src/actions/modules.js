@@ -32,5 +32,6 @@ export function addModule(type, provider) {
 export function saveModules() {
   const modules = getGlobal().modules;
   console.log(modules);
+  setGlobal({ moduleChanges: false })
   //Need to hit the updateConfig endpoint here
 }

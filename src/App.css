@@ -83,6 +83,7 @@ a {
   box-shadow: none;
   border: none;
   cursor: pointer;
+  padding: 0;
 }
 
 .logo {

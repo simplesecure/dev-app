@@ -29,3 +29,21 @@ export function createProject() {
   }
   //post to update config endpoint
 }
+
+export function deleteProject(id) {
+  let projects = getGlobal().projects;
+  let projectsIndex = projects.map((x) => {return x.id }).indexOf(id);
+  if(projectsIndex > -1) {
+    projects.splice(projectsIndex, 1);
+  } else {
+    console.log("error removing module");
+  }
+  //Make call out to server to update projects
+  //Need to send api key
+
+  setGlobal({ projects });
+  const modals = document.getElementsByClassName('modal-close');
+  for(const modal of modals) {
+    modal.click();
+  }
+}
