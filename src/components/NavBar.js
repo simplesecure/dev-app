@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/img/simpleid_black_logo.png';
 import { openSideNav } from '../actions/nav';
 import { handleSignOut } from '../actions/account';
+import UpgradeModal from './modals/UpgradeModal';
 
 export default class NavBar extends React.Component {
   render() {
@@ -21,7 +22,9 @@ export default class NavBar extends React.Component {
           <ul id="nav-mobile" className="right">
             {
               isSignedIn && !paidAccount ? 
-              <li><button className="btn btn-primary">Upgrade</button></li> : 
+              <li>
+                <UpgradeModal />  
+              </li> : 
               <li className="hide"></li>
             }
             {

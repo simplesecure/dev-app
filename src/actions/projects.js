@@ -9,8 +9,12 @@ export function createProject() {
   const projDetails = {
     id: makeUUID4(),
     name: document.getElementById('project-name-input').value, 
-    createdDate: getMonthDateYear()
+    createdDate: getMonthDateYear(), 
+    active: true
   }
+
+  //This is where we will update the dev account with the project and get an api key back
+  projDetails.apiKey = ""//this will be from the response
   if(projects.length < 1 || plan.upgraded) {
     projects.push(projDetails);
     setGlobal({ projects });
@@ -19,6 +23,9 @@ export function createProject() {
       message: "You need to upgrade your plan to do this"
     }
   }
-  console.log(projects);
+  const modals = document.getElementsByClassName('modal-close');
+  for(const modal of modals) {
+    modal.click();
+  }
   //post to update config endpoint
 }
