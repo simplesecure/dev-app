@@ -1,7 +1,7 @@
 import React, { getGlobal } from 'reactn';
 import Account from '../components/Account';
 import Login from './Login';
-const userVerified = true //JSON.parse(localStorage.getItem('simpleIDVerification'));
+const userVerified = true//JSON.parse(localStorage.getItem('simpleIDVerification'));
 
 function Home() {
   const { isSignedIn } = getGlobal();

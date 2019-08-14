@@ -8,7 +8,8 @@ import * as serviceWorker from './serviceWorker';
 
 const appConfig = new AppConfig(['store_write', 'publish_data', 'email']);
 const userSession = new UserSession({ appConfig });
-const userVerified = JSON.parse(localStorage.getItem('simpleIDVerification'));
+const userVerified = userSession.loadUserData().devConfig.isVerified;
+console.log(userVerified);
 
 setGlobal({
   account: {},

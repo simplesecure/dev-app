@@ -1,13 +1,13 @@
-import { createUserAccount, login } from 'simpleid-js-sdk';
+import { createUserAccount, login, updateConfig } from 'simpleid-js-sdk';
 import { setGlobal, getGlobal } from 'reactn';
+
 const config = {
-  apiKey: "123345",
-  devUsername: "",
   authProviders: ['blockstack'], 
   storageProviders: [], 
-  appOrigin: "https://dev.simpleid.xyz", 
+  appOrigin: "https://app.simpleid.xyz", 
   scopes: ['publish_data', 'store_write', 'email'], 
-  isDev: true 
+  isDev: true, 
+  development: true
 }
 export async function handleSignUp(e) {
   document.getElementById('error-message').innerText = "";
@@ -89,4 +89,20 @@ export function checkAccountPlan() {
   } else {
     return false;
   }
+}
+
+export async function verifyAccount(verificationID) {
+  console.log("verifying...")
+  const { userSession } = getGlobal();
+  const config = userSession.loadUserData().devConfig;
+  config.isVerified = true;
+  const updates = {
+    userId: userSession.loadUserData().identityAddress,
+    username: userSession.loadUserData().username,
+    verificationID, 
+    config
+  }
+  const update = await updateConfig(updates, true);
+  console.log(update);
+  return update;
 }

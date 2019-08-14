@@ -28,7 +28,7 @@ class SideNav extends React.Component {
           </div></li>
           <li><Link onClick={this.closeSideNav} to={'/account'}>Account</Link></li>
           <li><Link onClick={this.closeSideNav} to={'/modules'}>Modules</Link></li>
-          <li><Link onClick={this.closeSideNav} to={'/documentation'}>Docs</Link></li>
+          <li><a href="https://docs.simpleid.xyz" target="_blank" rel="noreferrer noopener">Docs</a></li>
           <li><Link onClick={this.closeSideNav} to={'/stats'}>Stats</Link></li>
           <li>
             <footer className="page-footer">

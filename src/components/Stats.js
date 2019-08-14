@@ -4,7 +4,8 @@ function Stats() {
   return (
     <div className="page-margin">
       <div className="container">
-      Stats
+      <h5>Stats</h5>
+      <p>Coming soon...</p>
       </div>
     </div>
   );
