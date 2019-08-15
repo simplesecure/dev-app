@@ -97,10 +97,11 @@ export async function verifyAccount(verificationID) {
   const config = userSession.loadUserData().devConfig;
   config.isVerified = true;
   const updates = {
-    userId: userSession.loadUserData().identityAddress,
+    userId: userSession.loadUserData().username,
     username: userSession.loadUserData().username,
     verificationID, 
-    config
+    config, 
+    development: true
   }
   const update = await updateConfig(updates, true);
   console.log(update);

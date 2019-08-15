@@ -8,6 +8,7 @@ import UpgradeModal from './modals/UpgradeModal';
 export default class NavBar extends React.Component {
   render() {
     const { isSignedIn, paidAccount } = this.global;
+    console.log(isSignedIn);
     return (
       <nav>
         <div className="nav-wrapper">
