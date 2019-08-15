@@ -11,11 +11,15 @@ import './App.css';
 
 class App extends React.Component {
   componentDidMount() {
-    const { userSession } = this.global;
+    const { userSession, modules } = this.global;
     if(userSession.isUserSignedIn()) {
       if(userSession.loadUserData().devConfig.isVerified) {
         if(userSession.loadUserData().devConfig.projects) {
-          setGlobal({ isVerified: true, projects: userSession.loadUserData().devConfig.projects });
+          const storageModules = userSession.loadUserData().devConfig.storageModules || [];
+          const authModules = userSession.loadUserData().devConfig.authModules || [];
+          modules.auth = authModules;
+          modules.storage = storageModules;
+          setGlobal({ isVerified: true, projects: userSession.loadUserData().devConfig.projects, modules });
         } else {
           setGlobal({ isVerified: true });
         }

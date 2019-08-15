@@ -62,7 +62,8 @@ export async function handleSignIn(e) {
       console.log("here we go")
       setGlobal({
         isVerified: true, 
-        isSignedIn: true
+        isSignedIn: true, 
+        modules: { auth: signIn.body.store.sessionData.userData.devConfig.authModules || [], storage: signIn.body.store.sessionData.userData.devConfig.storageModules || [] }
       })
     } else {
       setGlobal({
