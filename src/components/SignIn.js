@@ -1,8 +1,6 @@
 import React from 'reactn';
 import { handleSignIn } from '../actions/account';
 
-const rp = require('request-promise');
-
 class SignIn extends React.Component {
   handleCorsTest(e)
   {
@@ -65,6 +63,9 @@ class SignIn extends React.Component {
               <div className="input-group">
                 <input type="password" id="password-input-signin" name="user_password" className="form-control" data-placement="bottom" data-toggle="popover" data-container="body"
                       data-html="true" placeholder="Password" required />
+              </div>
+              <div style={{display: "none"}} id="sign-in-error">
+                <p className="red-text">Trouble signing in, please check your username/password.</p>
               </div>
               <div className="help-block text-right">
                 <small><a href="https://simpleid.xyz">Forgot Password</a></small>

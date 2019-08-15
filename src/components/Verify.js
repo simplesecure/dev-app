@@ -1,4 +1,4 @@
-import React from 'reactn';
+import React, { setGlobal } from 'reactn';
 import { decodeToken } from 'jsontokens'
 import { verifyAccount } from '../actions/account';
 
@@ -14,6 +14,13 @@ class Stats extends React.Component{
       console.log("doing it")
       const verified = await verifyAccount(tokenData.payload.verificationID);
       console.log(verified);
+      if(verified.message === "updated developer account") {
+        setGlobal({ isVerified: true });
+        let userDataObj = JSON.parse(localStorage.getItem('blockstack-session'));
+        userDataObj.userData.devConfig = JSON.parse(verified.body);
+        localStorage.setItem('blockstack-session', JSON.stringify(userDataObj));
+        window.location.replace('/');
+      }
     }
   }
 

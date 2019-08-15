@@ -14,6 +14,7 @@ setGlobal({
   instance: {},
   isSignedIn: userSession.isUserSignedIn() ? true : false, 
   userSession,
+  isVerified: false,
   screen: "login", 
   moduleChanges: false, 
   projects: [],

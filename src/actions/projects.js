@@ -1,23 +1,44 @@
-import { makeUUID4 } from "blockstack";
 import { getMonthDateYear } from './misc';
 import { getGlobal, setGlobal } from "reactn";
+import { updateConfig } from 'simpleid-js-sdk';
 import { checkAccountPlan } from './account';
+const uuidAPIKey = require('uuid-apikey');
 
-export function createProject() {
+export async function createProject() {
+  const userSession = getGlobal().userSession;
+  const projectKeys = uuidAPIKey.create();
+
   let projects = getGlobal().projects;
   const plan = checkAccountPlan();
   const projDetails = {
-    id: makeUUID4(),
+    id: projectKeys.uuid,
     name: document.getElementById('project-name-input').value, 
     createdDate: getMonthDateYear(), 
-    active: true
+    apiKey: projectKeys.apiKey
   }
-
-  //This is where we will update the dev account with the project and get an api key back
-  projDetails.apiKey = ""//this will be from the response
+  
   if(projects.length < 1 || plan.upgraded) {
     projects.push(projDetails);
-    setGlobal({ projects });
+    let devData = JSON.parse(localStorage.getItem('blockstack-session'));
+    devData.userData.devConfig.projects = projects;
+    const config =  devData.userData.devConfig;
+    localStorage.setItem('blockstack-session', JSON.stringify(devData));
+    console.log(config);
+    const updates = {
+      userId: userSession.loadUserData().username,
+      username: userSession.loadUserData().username,
+      config, 
+      development: true, 
+      apiKey: userSession.loadUserData().devConfig.apiKey
+    }
+    console.log(updates);
+    try {
+      const update = await updateConfig(updates);
+      console.log(update);
+      setGlobal({ projects });
+    } catch(err) {
+      console.log(err);
+    }
   } else {
     return {
       message: "You need to upgrade your plan to do this"
@@ -27,10 +48,10 @@ export function createProject() {
   for(const modal of modals) {
     modal.click();
   }
-  //post to update config endpoint
 }
 
-export function deleteProject(id) {
+export async function deleteProject(id) {
+  const userSession = getGlobal().userSession;
   let projects = getGlobal().projects;
   let projectsIndex = projects.map((x) => {return x.id }).indexOf(id);
   if(projectsIndex > -1) {
@@ -40,7 +61,25 @@ export function deleteProject(id) {
   }
   //Make call out to server to update projects
   //Need to send api key
-
+  let devData = JSON.parse(localStorage.getItem('blockstack-session'));
+  devData.userData.devConfig.projects = projects;
+  const config =  devData.userData.devConfig;
+  const updates = {
+    userId: userSession.loadUserData().username,
+    username: userSession.loadUserData().username,
+    config, 
+    development: true, 
+    apiKey: userSession.loadUserData().devConfig.apiKey
+  }
+  console.log(updates);
+  try {
+    const update = await updateConfig(updates);
+    console.log(update);
+    setGlobal({ projects });
+  } catch(err) {
+    console.log(err);
+  }
+  localStorage.setItem('blockstack-session', JSON.stringify(devData));
   setGlobal({ projects });
   const modals = document.getElementsByClassName('modal-close');
   for(const modal of modals) {

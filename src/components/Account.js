@@ -34,7 +34,7 @@ class Account extends React.Component {
                   <button onClick={createProject} className="black btn">Create</button>
                 </Modal> : 
                 <div>
-                  <button className="btn btn-secondary">Upgrade Account</button>
+                  <button onClick={this.upgradeModal} className="btn btn-secondary">Upgrade Account</button>
                   <p>You'll need to upgrade to add more projects</p>
                 </div>
               }

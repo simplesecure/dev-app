@@ -43,6 +43,7 @@ export async function handleSignUp(e) {
 
 export async function handleSignIn(e) {
   e.preventDefault();
+  document.getElementById('sign-in-error').style.display = "none";
   setGlobal({ loading: true });
   const credObj = {
     id: document.getElementById('username-input-signin').value,
@@ -57,9 +58,11 @@ export async function handleSignIn(e) {
   try {
     const signIn = await login(params);
     console.log(signIn);
-    if(signIn.verified) {
+    if(signIn.body.store.sessionData.userData.devConfig.isVerified) {
+      console.log("here we go")
       setGlobal({
-        screen: ""
+        isVerified: true, 
+        isSignedIn: true
       })
     } else {
       setGlobal({
@@ -69,8 +72,10 @@ export async function handleSignIn(e) {
     localStorage.setItem('blockstack-session', JSON.stringify(signIn.body.store.sessionData))
   } catch(err) {
     console.log(err);
+    document.getElementById('sign-in-error').style.display = "block";
     setGlobal({
-      screen: "login"
+      screen: "login", 
+      loading: false
     })
   }
 }
@@ -96,6 +101,7 @@ export async function verifyAccount(verificationID) {
   const { userSession } = getGlobal();
   const config = userSession.loadUserData().devConfig;
   config.isVerified = true;
+  config.accountInfo.isCurrent = true;
   const updates = {
     userId: userSession.loadUserData().username,
     username: userSession.loadUserData().username,
@@ -103,6 +109,7 @@ export async function verifyAccount(verificationID) {
     config, 
     development: true
   }
+  console.log(updates);
   const update = await updateConfig(updates, true);
   console.log(update);
   return update;

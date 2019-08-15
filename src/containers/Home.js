@@ -1,26 +1,26 @@
-import React, { getGlobal } from 'reactn';
+import React from 'reactn';
 import Account from '../components/Account';
 import Login from './Login';
-let userVerified;
 
-function Home() {
-  const { isSignedIn, userSession } = getGlobal();
-  if(isSignedIn) {
-    userVerified = userSession.loadUserData().devConfig.isVerified;
+class Home extends React.Component {
+  render() {
+    const { isSignedIn, isVerified } = this.global;
+    console.log(isSignedIn);
+    console.log(isVerified);
+    return (
+      <div>
+        {
+          isSignedIn ? 
+          isVerified ? 
+          <Account />
+          : 
+          <Login />
+          : 
+          <Login />
+        }
+      </div>
+    );
   }
-  return (
-    <div>
-      {
-        isSignedIn ? 
-        userVerified ? 
-        <Account />
-        : 
-        <Login />
-        : 
-        <Login />
-      }
-    </div>
-  );
 }
 
 export default Home;
