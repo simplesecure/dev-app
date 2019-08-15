@@ -28,10 +28,12 @@ class Projects extends React.Component {
                           <p>{proj.createdDate}</p>
                           <h5>Developer ID</h5>
                           <div style={{cursor: "pointer"}}>
-                            <TextInput disabled={true} icon="content_copy" value={userSession.loadUserData().identityAddress} />
+                            <TextInput disabled={true} icon="content_copy" value={userSession.loadUserData().username} />
                           </div>
                           <h5>API Key</h5>
-                          <p>123456</p>
+                          <div style={{cursor: "pointer"}}>
+                            <TextInput disabled={true} icon="content_copy" value={userSession.loadUserData().devConfig.apiKey} />
+                          </div>
                           <button onClick={newKey} className="btn black">Generate New Key</button>
                         </Modal>
                         <br/>

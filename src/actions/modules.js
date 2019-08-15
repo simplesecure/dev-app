@@ -1,4 +1,5 @@
 import { setGlobal, getGlobal } from 'reactn';
+import { updateConfig } from 'simpleid-js-sdk';
 
 export function addModule(type, provider) {
   const modules = getGlobal().modules;
@@ -29,9 +30,29 @@ export function addModule(type, provider) {
   setGlobal({ modules, moduleChanges: true });
 }
 
-export function saveModules() {
+export async function saveModules() {
   const modules = getGlobal().modules;
+  const userSession = getGlobal().userSession;
   console.log(modules);
-  setGlobal({ moduleChanges: false })
+  let devData = JSON.parse(localStorage.getItem('blockstack-session'));
+  devData.userData.devConfig.storageModules = modules.storage;
+  devData.userData.devConfig.authModules = modules.auth;
+  const config =  devData.userData.devConfig;
+  localStorage.setItem('blockstack-session', JSON.stringify(devData));
+  setGlobal({ moduleChanges: false });
+  const updates = {
+    userId: userSession.loadUserData().username,
+    username: userSession.loadUserData().username,
+    config, 
+    development: true, 
+    apiKey: userSession.loadUserData().devConfig.apiKey
+  }
+  console.log(updates);
+  try {
+    const update = await updateConfig(updates);
+    console.log(update);
+  } catch(err) {
+    console.log(err);
+  }
   //Need to hit the updateConfig endpoint here
 }
