@@ -1,5 +1,6 @@
 import React from 'reactn';
 import { handleSignUp } from '../actions/account';
+import signupButton from '../assets/img/signupButton.png';
 
 class SignUp extends React.Component {
   render() {
@@ -32,7 +33,12 @@ class SignUp extends React.Component {
             </div>
   
             <div className="form-group">
-              <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">{loading ? "Registering account..." : "Sign Up"}</button>
+              {
+                loading ? 
+                <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Registering Account...</button> : 
+                <button id="reg_submit" name="submit" value="1" className="link-button"><img className="loginButton" src={signupButton} alt="signup" /></button>
+              }
+              
               <span id="error-message" className="red-text"></span>
             </div>
   

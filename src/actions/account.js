@@ -9,7 +9,7 @@ const config = {
   isDev: true, 
   apiKey: "-LmCb96-TquOlN37LpM0", 
   devId: "imanewdeveloper", 
-  development: true
+  development: process.env.NODE_ENV === "production" ? false : true
 }
 export async function handleSignUp(e) {
   document.getElementById('error-message').innerText = "";

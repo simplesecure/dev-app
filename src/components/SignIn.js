@@ -1,5 +1,6 @@
 import React from 'reactn';
 import { handleSignIn } from '../actions/account';
+import loginButton from '../assets/img/loginButton.png';
 
 class SignIn extends React.Component {
   handleCorsTest(e)
@@ -75,7 +76,12 @@ class SignIn extends React.Component {
             </div>
 
             <div className="form-group">
-              <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">{loading ? "Logging in..." : "Login"}</button>
+              {
+                loading ? 
+                <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Logging in...</button> : 
+                <button id="reg_submit" name="submit" value="1" className="link-button"><img className="loginButton" src={loginButton} alt="login" /></button>
+              }
+              
             </div>
           </form>
 

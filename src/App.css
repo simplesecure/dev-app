@@ -61,6 +61,11 @@ nav {
   background: #fff!important;
 }
 
+.loginButton {
+  max-width: 200px;
+  margin-top: 20px;
+}
+
 .sidebar-logo {
   max-width: 60%;
   margin: auto;
