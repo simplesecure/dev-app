@@ -17,7 +17,14 @@ class Stats extends React.Component{
       if(verified.message === "updated developer account") {
         setGlobal({ isVerified: true });
         let userDataObj = JSON.parse(localStorage.getItem('blockstack-session'));
-        userDataObj.userData.devConfig = JSON.parse(verified.body);
+        let response = JSON.parse(verified.body);
+        let config = JSON.parse(response.config);
+        userDataObj.userData.devConfig = config;
+        const apiKey = JSON.parse(verified.body).apiKey;
+        console.log(apiKey);
+        if(apiKey) {
+          userDataObj.userData.devConfig.apiKey = apiKey;
+        }
         localStorage.setItem('blockstack-session', JSON.stringify(userDataObj));
         window.location.replace('/');
       }
