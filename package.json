@@ -12,7 +12,7 @@
     "react-scripts": "3.1.0",
     "reactn": "^2.1.7",
     "request-promise": "^4.2.4",
-    "simpleid-js-sdk": "^0.2.3",
+    "simpleid-js-sdk": "^0.2.6",
     "uuid-apikey": "^1.4.3"
   },
   "scripts": {
