@@ -108,7 +108,7 @@ export async function verifyAccount(verificationID) {
     username: userSession.loadUserData().username,
     verificationID, 
     config, 
-    development: true
+    development: process.env.NODE_ENV === "production" ? false : true
   }
   console.log(updates);
   const update = await updateConfig(updates, true);
