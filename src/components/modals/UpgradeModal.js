@@ -1,6 +1,7 @@
 import React from 'reactn';
 import { Modal } from 'react-materialize';
 import InfoModal from './InfoModal';
+import {render} from 'react-dom';
 
 function UpgradeModal() {
   return (
@@ -12,14 +13,14 @@ function UpgradeModal() {
         <li>Unlimited Modules</li>
         <li>5gb Pinned IPFS Storage via Pinata</li>
         <li>Email Support</li>
-        <li>1,000 active users 
+        <li>1,000 active users
           <span>
             <InfoModal type="userInfo" />
           </span>
         </li>
       </ul>
+      <button id="checkout-button-DeveloperMonthly9" className="btn-primary btn" onClick={window.stripeCheckout}>Purchase</button>
       <p>Need more? <a href="https://simpleid.xyz" target="_blank" rel="noreferrer noopener">Contact us</a> to learn about our Enterprise packages.</p>
-      <button className="btn-primary btn">Sign Up Now</button>
     </Modal>
   );
 }

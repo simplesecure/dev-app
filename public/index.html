@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="App SimpleID is a portal for developers to add secure, encrypted authentication and storage to their apps."
     />
     <link rel="apple-touch-icon" href="/simpleid_mark_black.png" />
     <!--
@@ -25,10 +25,54 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>SimpleID - Decentralized Identity</title>
+    <title>SimpleID - Decentralized Simplified</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <!-- <script src="https://js.stripe.com/v3/"></script> -->
+    <!-- Load Stripe.js on your website. -->
+    <script src="https://js.stripe.com/v3"></script>
+
+    <!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
+    <!-- <button
+      style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em"
+      id="checkout-button-DeveloperMonthly9"
+      role="link"
+    >
+      Checkout
+    </button>
+
+    <div id="error-message"></div> -->
+    <script>
+      var stripe = Stripe('pk_live_HVUtRXrwrle2UEWWWzDYipOM00nMpVhNLS');
+      function stripeCheckout() {
+        // When the customer clicks on the button, redirect
+        // them to Checkout.
+        stripe.redirectToCheckout({
+          items: [{plan: 'DeveloperMonthly9', quantity: 1}],
+
+          // Do not rely on the redirect to the successUrl for fulfilling
+          // purchases, customers may not always reach the success_url after
+          // a successful payment.
+          // Instead use one of the strategies described in
+          // https://stripe.com/docs/payments/checkout/fulfillment
+          successUrl: 'https://app.simpleid.xyz/account',
+          cancelUrl: 'https://app.simpleid.xyz/account',
+        })
+        .then(function (result) {
+          if (result.error) {
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, display the localized error message to your customer.
+            var displayError = document.getElementById('error-message');
+            displayError.textContent = result.error.message;
+          }
+          else {
+            console.log('Stripe Result', result)
+          }
+        });
+      };
+    </script>
     <div id="root"></div>
     <!--
       This HTML file is a template.
