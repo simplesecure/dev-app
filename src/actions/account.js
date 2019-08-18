@@ -2,13 +2,13 @@ import { createUserAccount, login, updateConfig, getConfig } from 'simpleid-js-s
 import { setGlobal, getGlobal } from 'reactn';
 
 const config = {
-  authProviders: ['blockstack'], 
-  storageProviders: [], 
-  appOrigin: "https://app.simpleid.xyz", 
-  scopes: ['publish_data', 'store_write', 'email'], 
-  isDev: true, 
-  apiKey: "-LmCb96-TquOlN37LpM0", 
-  devId: "imanewdeveloper", 
+  authProviders: ['blockstack'],
+  storageProviders: [],
+  appOrigin: "https://app.simpleid.xyz",
+  scopes: ['publish_data', 'store_write', 'email'],
+  isDev: true,
+  apiKey: "-LmCb96-TquOlN37LpM0",
+  devId: "imanewdeveloper",
   development: process.env.NODE_ENV === "production" ? false : true
 }
 export async function handleSignUp(e) {
@@ -18,7 +18,7 @@ export async function handleSignUp(e) {
   const credObj = {
     id: document.getElementById('username-input-signup').value,
     password: document.getElementById('password-input-signup').value,
-    hubUrl: "https://hub.blockstack.org", 
+    hubUrl: "https://hub.blockstack.org",
     email: document.getElementById('email-input-signup').value
   }
   try {
@@ -71,8 +71,8 @@ export async function handleSignIn(e) {
 
     if(signIn.body.store.sessionData.userData.devConfig.isVerified) {
       setGlobal({
-        isVerified: true, 
-        isSignedIn: true, 
+        isVerified: true,
+        isSignedIn: true,
         modules: { auth: authModArray, storage: storageModArray }
       })
     } else {
@@ -85,7 +85,7 @@ export async function handleSignIn(e) {
     console.log(err);
     document.getElementById('sign-in-error').style.display = "block";
     setGlobal({
-      screen: "login", 
+      screen: "login",
       loading: false
     })
   }
@@ -116,8 +116,8 @@ export async function verifyAccount(verificationID) {
   const updates = {
     userId: userSession.loadUserData().username,
     username: userSession.loadUserData().username,
-    verificationID, 
-    config, 
+    verificationID,
+    config,
     development: process.env.NODE_ENV === "production" ? false : true
   }
   console.log(updates);
@@ -128,8 +128,8 @@ export async function verifyAccount(verificationID) {
 
 export async function getUpdatedConfig() {
   const params = {
-    devId: config.devId, 
-    development: process.env.NODE_ENV === "production" ? false : true, 
+    devId: config.devId,
+    development: process.env.NODE_ENV === "production" ? false : true,
     apiKey: config.apiKey
   }
   const devConfig = await getConfig(params);

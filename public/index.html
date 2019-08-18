@@ -45,20 +45,30 @@
 
     <div id="error-message"></div> -->
     <script>
+      //Production
       var stripe = Stripe('pk_live_HVUtRXrwrle2UEWWWzDYipOM00nMpVhNLS');
-      function stripeCheckout() {
+      //Development
+      // var stripe = Stripe('pk_test_8azTtz3IDZLvRJ50sbd9oAB100HBechRb3');
+      function stripeCheckout(devId) {
         // When the customer clicks on the button, redirect
         // them to Checkout.
         stripe.redirectToCheckout({
-          items: [{plan: 'DeveloperMonthly9', quantity: 1}],
+          //Development item
+          // items: [{plan: 'plan_FeEbmT0N8UYlyX', quantity: 1}],
+          //production item
+          items: [{plan: 'plan_FeFkxFTCKwDpj0', quantity: 1}],
 
           // Do not rely on the redirect to the successUrl for fulfilling
           // purchases, customers may not always reach the success_url after
           // a successful payment.
           // Instead use one of the strategies described in
           // https://stripe.com/docs/payments/checkout/fulfillment
-          successUrl: 'https://app.simpleid.xyz/account',
-          cancelUrl: 'https://app.simpleid.xyz/account',
+          //Development URL
+          // successUrl: 'http://localhost:3001',
+          // cancelUrl: 'http://localhost:3001',
+          successUrl: 'https://app.simpleid.xyz',
+          cancelUrl: 'https://app.simpleid.xyz',
+          clientReferenceId: devId
         })
         .then(function (result) {
           if (result.error) {

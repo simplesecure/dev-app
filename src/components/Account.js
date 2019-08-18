@@ -19,8 +19,8 @@ class Account extends React.Component {
             <div style={{marginBottom: "20px"}} className="col s12">
               <h3>Account</h3>
               {
-                isUpgraded ? 
-                <p>You may create multiple projects and select multiple modules to include in your project.</p> : 
+                isUpgraded ?
+                <p>You may create multiple projects and select multiple modules to include in your project.</p> :
                 <div>
                   <p>Your free account allows you to create one project with Blockstack Authentication and Blockstack Storage. If you'd like to create additional projects or use additional modules, <button style={{color: "#fff", textDecoration: "underline"}} className="link-button" onClick={this.upgradeModal}>please upgrade</button>.</p>
                 </div>
@@ -28,12 +28,12 @@ class Account extends React.Component {
             </div>
             <div className="col s12 m6">
               {
-                checkAccountPlan() || projects.length < 1 ? 
+                checkAccountPlan() || projects.length < 1 ?
                 <Modal className="black-text" header="Create New Project" trigger={<button className="btn btn-secondary">Create New Project</button>}>
                   <p>All we need is a project name.</p>
                   <TextInput id="project-name-input" label="Project Name" />
                   <button onClick={createProject} className="black btn">Create</button>
-                </Modal> : 
+                </Modal> :
                 <div>
                   <button onClick={this.upgradeModal} className="btn btn-secondary">Upgrade Account</button>
                   <p>You'll need to upgrade to add more projects</p>
@@ -43,7 +43,7 @@ class Account extends React.Component {
             {
               projects.length > 0 ?
               <Projects />
-              : 
+              :
               <div>
                 <p>You haven't created any projects yet. What are you waiting for?</p>
               </div>
@@ -65,7 +65,7 @@ class Account extends React.Component {
                       )
                     })
                   }
-                </div> : 
+                </div> :
                 <div className="card-panel black-text">
                   <p>You have not yet selected any authentication modules to include in your application.</p>
                 </div>
@@ -83,7 +83,7 @@ class Account extends React.Component {
                       )
                     })
                   }
-                </div> : 
+                </div> :
                 <div className="card-panel black-text">
                   <p>You have not yet selected any storage modules to include in your application.</p>
                 </div>

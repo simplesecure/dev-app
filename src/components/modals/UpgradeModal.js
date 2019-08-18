@@ -5,7 +5,6 @@ import InfoModal from './InfoModal';
 function UpgradeModal() {
   const userSession = getGlobal().userSession;
   const devId = userSession.loadUserData().username;
-  console.log(devId);
   return (
     <Modal className="black-text" header="Upgrade Account" trigger={<button id="upgradeButton" className="btn btn-primary">Upgrade</button>}>
       <h5>$9 per month (USD)</h5>
@@ -21,7 +20,7 @@ function UpgradeModal() {
           </span>
         </li>
       </ul>
-      <button id="checkout-button-DeveloperMonthly9" className="btn-primary btn" onClick={window.stripeCheckout}>Purchase</button>
+      <button id="checkout-button-DeveloperMonthly9" className="btn-primary btn" onClick={() => window.stripeCheckout(devId)}>Purchase</button>
       <p>Need more? <a href="https://simpleid.xyz" target="_blank" rel="noreferrer noopener">Contact us</a> to learn about our Enterprise packages.</p>
     </Modal>
   );
