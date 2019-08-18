@@ -1,4 +1,4 @@
-import { createUserAccount, login, updateConfig } from 'simpleid-js-sdk';
+import { createUserAccount, login, updateConfig, getConfig } from 'simpleid-js-sdk';
 import { setGlobal, getGlobal } from 'reactn';
 
 const config = {
@@ -58,12 +58,22 @@ export async function handleSignIn(e) {
   try {
     const signIn = await login(params);
     console.log(signIn);
+    let authModules = signIn.body.store.sessionData.userData.devConfig.authModules;
+    let authModStrings = authModules.split('[')[1].split(']')[0];
+    let authModArray = authModStrings.split(',');
+
+    let storageModules = signIn.body.store.sessionData.userData.devConfig.storageModules;
+    let storageModStrings = storageModules.split('[')[1].split(']')[0];
+    let storageModArray = storageModStrings.split(',');
+
+    signIn.body.store.sessionData.userData.devConfig.authModules = authModArray;
+    signIn.body.store.sessionData.userData.devConfig.storageModules = storageModArray;
+
     if(signIn.body.store.sessionData.userData.devConfig.isVerified) {
-      console.log("here we go")
       setGlobal({
         isVerified: true, 
         isSignedIn: true, 
-        modules: { auth: signIn.body.store.sessionData.userData.devConfig.authModules || [], storage: signIn.body.store.sessionData.userData.devConfig.storageModules || [] }
+        modules: { auth: authModArray, storage: storageModArray }
       })
     } else {
       setGlobal({
@@ -114,6 +124,29 @@ export async function verifyAccount(verificationID) {
   const update = await updateConfig(updates, true);
   console.log(update);
   return update;
+}
+
+export async function getUpdatedConfig() {
+  const params = {
+    devId: config.devId, 
+    development: process.env.NODE_ENV === "production" ? false : true, 
+    apiKey: config.apiKey
+  }
+  const devConfig = await getConfig(params);
+  let configObj = JSON.parse(devConfig.body);
+  let authModules = configObj.authModules;
+  let authModStrings = authModules.split('[')[1].split(']')[0];
+  let authModArray = authModStrings.split(',');
+
+  let storageModules = configObj.storageModules;
+  let storageModStrings = storageModules.split('[')[1].split(']')[0];
+  let storageModArray = storageModStrings.split(',');
+
+  configObj.authModules = authModArray;
+  configObj.storageModules = storageModArray;
+  let userData = JSON.parse(localStorage.getItem('blockstack-session'));
+  userData.userData.devConfig = configObj;
+  localStorage.setItem('blockstack-session', JSON.stringify(userData));
 }
 
 export function newKey() {

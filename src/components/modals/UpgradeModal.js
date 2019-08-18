@@ -1,7 +1,6 @@
 import React from 'reactn';
 import { Modal } from 'react-materialize';
 import InfoModal from './InfoModal';
-import {render} from 'react-dom';
 
 function UpgradeModal() {
   return (

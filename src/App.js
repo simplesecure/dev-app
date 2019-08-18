@@ -1,5 +1,6 @@
 import React, { setGlobal } from 'reactn';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { getUpdatedConfig } from './actions/account';
 import Home from './containers/Home';
 import Stats from './components/Stats';
 import Modules from './components/Modules';
@@ -13,6 +14,9 @@ class App extends React.Component {
   componentDidMount() {
     const { userSession, modules } = this.global;
     if(userSession.isUserSignedIn()) {
+      //Need to check for devConfig updates on each page load: 
+      getUpdatedConfig();
+      
       if(userSession.loadUserData().devConfig.isVerified) {
         if(userSession.loadUserData().devConfig.projects) {
           const storageModules = userSession.loadUserData().devConfig.storageModules || [];

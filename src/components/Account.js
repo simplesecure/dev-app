@@ -11,6 +11,7 @@ class Account extends React.Component {
   }
   render() {
     const { projects, modules, isUpgraded } = this.global;
+    console.log(modules.auth);
     return (
       <div className="page-margin">
         <div className="container">
