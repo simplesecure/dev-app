@@ -1,8 +1,11 @@
-import React from 'reactn';
+import React, { getGlobal } from 'reactn';
 import { Modal } from 'react-materialize';
 import InfoModal from './InfoModal';
 
 function UpgradeModal() {
+  const userSession = getGlobal().userSession;
+  const devId = userSession.loadUserData().username;
+  console.log(devId);
   return (
     <Modal className="black-text" header="Upgrade Account" trigger={<button id="upgradeButton" className="btn btn-primary">Upgrade</button>}>
       <h5>$9 per month (USD)</h5>
