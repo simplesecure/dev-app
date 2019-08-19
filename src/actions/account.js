@@ -73,7 +73,7 @@ export async function handleSignIn(e) {
       setGlobal({
         isVerified: true,
         isSignedIn: true,
-        modules: { auth: authModArray, storage: storageModArray }
+        modules: { auth: authModArray || [], storage: storageModArray || [] }
       })
     } else {
       setGlobal({
@@ -142,8 +142,8 @@ export async function getUpdatedConfig() {
   let storageModStrings = storageModules.split('[')[1].split(']')[0];
   let storageModArray = storageModStrings.split(',');
 
-  configObj.authModules = authModArray;
-  configObj.storageModules = storageModArray;
+  configObj.authModules = authModArray || [];
+  configObj.storageModules = storageModArray || [];
   let userData = JSON.parse(localStorage.getItem('blockstack-session'));
   userData.userData.devConfig = configObj;
   localStorage.setItem('blockstack-session', JSON.stringify(userData));
