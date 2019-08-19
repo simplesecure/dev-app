@@ -1,15 +1,15 @@
 import { getMonthDateYear } from './misc';
 import { getGlobal, setGlobal } from "reactn";
 import { updateConfig } from 'simpleid-js-sdk';
-import { checkAccountPlan } from './account';
 const uuidAPIKey = require('uuid-apikey');
 
 export async function createProject() {
   const userSession = getGlobal().userSession;
+  const isUpgraded = getGlobal().isUpgraded;
+
   const projectKeys = uuidAPIKey.create();
 
   let projects = getGlobal().projects;
-  const plan = checkAccountPlan();
   const projDetails = {
     id: projectKeys.uuid,
     name: document.getElementById('project-name-input').value, 
@@ -17,7 +17,7 @@ export async function createProject() {
     apiKey: projectKeys.apiKey
   }
   
-  if(projects.length < 1 || plan.upgraded) {
+  if(projects.length < 1 || isUpgraded) {
     projects.push(projDetails);
     let devData = JSON.parse(localStorage.getItem('blockstack-session'));
     devData.userData.devConfig.projects = projects;

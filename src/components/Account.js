@@ -2,7 +2,6 @@ import React from 'reactn';
 import { Link } from 'react-router-dom';
 import Projects from './Projects';
 import { createProject } from '../actions/projects';
-import { checkAccountPlan } from '../actions/account';
 import { Modal, TextInput } from 'react-materialize';
 
 class Account extends React.Component {
