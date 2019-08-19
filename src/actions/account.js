@@ -120,15 +120,6 @@ export function handleSignOut(e) {
   window.location.reload();
 }
 
-export function checkAccountPlan() {
-  const account = getGlobal().account;
-  if(account.isUpgraded) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 export async function verifyAccount(verificationID) {
   console.log("verifying...")
   const { userSession } = getGlobal();
