@@ -3,18 +3,12 @@
     "id": "pinata",
     "name": "Pinata", 
     "logo": "https://i.imgur.com/pzxj0Wn.png",
-    "info": "The IPFS module allows you to store data to the IPFS p2p network via the SimpleID node. A content has will be returned. Content is not pinned just by using this module. If you need pinning services, consider adding the Pinata module as well."
+    "info": "The IPFS module allows you to store data to the IPFS p2p network via the SimpleID node. A content hash will be returned so that you can provide it to your users, but you can also query your content and fetch it directly."
   },
   {
     "id": "blockstack",
     "name": "Blockstack", 
     "logo": "https://avatars3.githubusercontent.com/u/8165984?v=4&s=200",
     "info": "The Blockstack module uses Blockstack's Gaia storage and provides a high-performance cloud solution. Unless your users have deployed their own Gaia storage hub, this module makes use of SimpleID's default hub."
-  },
-  {
-    "id": "ipfs",
-    "name": "IPFS", 
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/1/18/Ipfs-logo-1024-ice-text.png",
-    "info": "The IPFS module allows you to store data to the IPFS p2p network via the SimpleID node. A content has will be returned. Content is not pinned just by using this module. If you need pinning services, consider adding the Pinata module as well."
   }
 ]

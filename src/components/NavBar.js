@@ -7,7 +7,7 @@ import UpgradeModal from './modals/UpgradeModal';
 
 export default class NavBar extends React.Component {
   render() {
-    const { isSignedIn, paidAccount } = this.global;
+    const { isSignedIn, isUpgraded } = this.global;
     return (
       <nav>
         <div className="nav-wrapper">
@@ -21,7 +21,7 @@ export default class NavBar extends React.Component {
           </ul>
           <ul id="nav-mobile" className="right">
             {
-              isSignedIn && !paidAccount ?
+              isSignedIn && !isUpgraded ?
               <li>
                 <UpgradeModal />
               </li> :

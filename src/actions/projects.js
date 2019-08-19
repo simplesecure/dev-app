@@ -22,6 +22,7 @@ export async function createProject() {
     let devData = JSON.parse(localStorage.getItem('blockstack-session'));
     devData.userData.devConfig.projects = projects;
     const config =  devData.userData.devConfig;
+    
     localStorage.setItem('blockstack-session', JSON.stringify(devData));
     console.log(config);
     const updates = {

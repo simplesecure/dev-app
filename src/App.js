@@ -18,6 +18,7 @@ class App extends React.Component {
       getUpdatedConfig();
       
       if(userSession.loadUserData().devConfig.isVerified) {
+        setGlobal({ isUpgraded: userSession.loadUserData().devConfig.isUpgraded });
         if(userSession.loadUserData().devConfig.projects) {
           const storageModules = userSession.loadUserData().devConfig.storageModules || [];
           const authModules = userSession.loadUserData().devConfig.authModules || [];
