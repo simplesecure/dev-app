@@ -120,7 +120,7 @@ class Modules extends React.Component {
           <div style={{marginBottom: "50px"}}>
             <h4>Modules</h4>
             <p style={{marginBottom: "40px"}}>You can select a combination of authentication and storage modules. You are restricted by your plan, so if you hit a limit and need more, please upgrade.</p>
-            <button onClick={() => this.setState({ moduleSelection: "auth" })} style={moduleSelection === "auth" ? {textDecoration: "underline", marginRight: "10px"} : {marginRight: "10px"}} className="link-button white-text">Authentication Modules</button><button onClick={() => this.setState({ moduleSelection: "storage" })} style={moduleSelection === "storage" ? {textDecoration: "underline"} : {}} className="link-button white-text">Storage Modules</button>
+            <button onClick={() => this.setState({ moduleSelection: "auth" })} style={moduleSelection === "auth" ? {textDecoration: "underline", marginRight: "25px", fontSize: "18px"} : {marginRight: "25px", fontSize: "18px"}} className="link-button white-text">Authentication Modules</button><button onClick={() => this.setState({ moduleSelection: "storage" })} style={moduleSelection === "storage" ? {textDecoration: "underline", fontSize: "18px"} : {fontSize: "18px"}} className="link-button white-text">Storage Modules</button>
           </div>
           {this.renderModuleSelector()}
         </div>

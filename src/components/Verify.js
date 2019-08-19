@@ -23,7 +23,7 @@ class Stats extends React.Component{
         const apiKey = JSON.parse(verified.body).apiKey;
         console.log(apiKey);
         if(apiKey) {
-          userDataObj.userData.devConfig.apiKey = apiKey;
+          userDataObj.userData.apiKey = apiKey;
         }
         localStorage.setItem('blockstack-session', JSON.stringify(userDataObj));
         window.location.replace('/');

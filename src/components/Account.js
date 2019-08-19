@@ -11,7 +11,6 @@ class Account extends React.Component {
   }
   render() {
     const { projects, modules, isUpgraded } = this.global;
-    console.log(modules.auth);
     return (
       <div className="page-margin">
         <div className="container">
@@ -59,7 +58,7 @@ class Account extends React.Component {
                   {
                     modules.auth.map(a => {
                       return (
-                        <div className="card-panel">
+                        <div key={a} className="card-panel">
                           <h6 className="black-text">{a.charAt(0).toUpperCase() + a.slice(1)}</h6>
                         </div>
                       )
@@ -77,7 +76,7 @@ class Account extends React.Component {
                   {
                     modules.storage.map(s => {
                       return (
-                        <div className="card-panel">
+                        <div key={s} className="card-panel">
                           <h6 className="black-text">{s.charAt(0).toUpperCase() + s.slice(1)}</h6>
                         </div>
                       )

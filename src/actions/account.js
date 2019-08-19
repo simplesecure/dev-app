@@ -1,5 +1,6 @@
 import { createUserAccount, login, updateConfig, getConfig } from 'simpleid-js-sdk';
 import { setGlobal, getGlobal } from 'reactn';
+import { UserSession, AppConfig } from 'blockstack';
 
 const config = {
   authProviders: ['blockstack'],
@@ -43,6 +44,7 @@ export async function handleSignUp(e) {
 
 export async function handleSignIn(e) {
   e.preventDefault();
+  
   document.getElementById('sign-in-error').style.display = "none";
   setGlobal({ loading: true });
   const credObj = {
@@ -58,29 +60,49 @@ export async function handleSignIn(e) {
   try {
     const signIn = await login(params);
     console.log(signIn);
-    let authModules = signIn.body.store.sessionData.userData.devConfig.authModules;
-    let authModStrings = authModules.split('[')[1].split(']')[0];
-    let authModArray = authModStrings.split(',');
+    let authModules; 
 
-    let storageModules = signIn.body.store.sessionData.userData.devConfig.storageModules;
-    let storageModStrings = storageModules.split('[')[1].split(']')[0];
-    let storageModArray = storageModStrings.split(',');
+    if(signIn.body.store.sessionData.userData.devConfig.authModules) {
+      authModules = signIn.body.store.sessionData.userData.devConfig.authModules;
 
-    signIn.body.store.sessionData.userData.devConfig.authModules = authModArray;
-    signIn.body.store.sessionData.userData.devConfig.storageModules = storageModArray;
+    } else {
+      authModules = [];
+    }
+    
+    let storageModules; 
+    let projects;
+    if(signIn.body.store.sessionData.userData.devConfig.storageModules) {
+      storageModules = signIn.body.store.sessionData.userData.devConfig.storageModules;
 
+    } else {
+      storageModules = [];
+    }
+
+    if(signIn.body.store.sessionData.userData.devConfig.projects) {
+      projects = signIn.body.store.sessionData.userData.devConfig.projects;
+    } else {
+      projects = [];
+    }
+
+    signIn.body.store.sessionData.userData.devConfig.authModules = authModules;
+    signIn.body.store.sessionData.userData.devConfig.storageModules = storageModules;
+    signIn.body.store.sessionData.userData.devConfig.projects = projects;
     if(signIn.body.store.sessionData.userData.devConfig.isVerified) {
-      setGlobal({
+      await setGlobal({
         isVerified: true,
         isSignedIn: true,
-        modules: { auth: authModArray || [], storage: storageModArray || [] }
-      })
+        modules: { auth: authModules || [], storage: storageModules || [] }, 
+        projects
+      });
     } else {
       setGlobal({
         screen: "verification"
       })
     }
     localStorage.setItem('blockstack-session', JSON.stringify(signIn.body.store.sessionData))
+    const appConfig = new AppConfig(['store_write', 'publish_data', 'email']);
+    const userSession = new UserSession({ appConfig });
+    setGlobal({ userSession });
   } catch(err) {
     console.log(err);
     document.getElementById('sign-in-error').style.display = "block";
@@ -111,8 +133,14 @@ export async function verifyAccount(verificationID) {
   console.log("verifying...")
   const { userSession } = getGlobal();
   const config = userSession.loadUserData().devConfig;
+  if(config.authModules && config.authModules.length < 1) {
+    delete config.authModules;
+  }
+  if(config.storageModules && config.storageModules.length < 1) {
+    delete config.storageModules;
+  }
+
   config.isVerified = true;
-  config.accountInfo.isCurrent = true;
   const updates = {
     userId: userSession.loadUserData().username,
     username: userSession.loadUserData().username,
@@ -127,23 +155,24 @@ export async function verifyAccount(verificationID) {
 }
 
 export async function getUpdatedConfig() {
+  const { userSession } = getGlobal();
   const params = {
-    devId: config.devId,
+    devId: userSession.loadUserData().username,
     development: process.env.NODE_ENV === "production" ? false : true,
     apiKey: config.apiKey
   }
   const devConfig = await getConfig(params);
-  let configObj = JSON.parse(devConfig.body);
+  let configObj = JSON.parse(devConfig.body).config;
   let authModules = configObj.authModules;
-  let authModStrings = authModules.split('[')[1].split(']')[0];
-  let authModArray = authModStrings.split(',');
+  // let authModStrings = authModules.split('[')[1].split(']')[0];
+  // let authModArray = authModStrings.split(',');
 
   let storageModules = configObj.storageModules;
-  let storageModStrings = storageModules.split('[')[1].split(']')[0];
-  let storageModArray = storageModStrings.split(',');
+  // let storageModStrings = storageModules.split('[')[1].split(']')[0];
+  // let storageModArray = storageModStrings.split(',');
 
-  configObj.authModules = authModArray || [];
-  configObj.storageModules = storageModArray || [];
+  configObj.authModules = authModules || [];
+  configObj.storageModules = storageModules || [];
   let userData = JSON.parse(localStorage.getItem('blockstack-session'));
   userData.userData.devConfig = configObj;
   localStorage.setItem('blockstack-session', JSON.stringify(userData));

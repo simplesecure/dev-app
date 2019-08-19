@@ -1,12 +1,10 @@
 import React from 'reactn';
-import { Modal, TextInput } from 'react-materialize';
-import { newKey } from '../actions/account';
+import { Modal } from 'react-materialize';
 import { deleteProject } from '../actions/projects';
 
 class Projects extends React.Component {
   render() {
     const { projects, userSession } = this.global;
-
     return (
       <div>
         {
@@ -18,7 +16,6 @@ class Projects extends React.Component {
                     <div className="col s6">
                       <div>
                         <h6>{proj.name}</h6>
-                        <p>{proj.active ? "Active" : "Inactive"}</p>
                       </div>
                     </div>
                     <div className="col s6">
@@ -27,14 +24,14 @@ class Projects extends React.Component {
                           <h5>Project Created: </h5>
                           <p>{proj.createdDate}</p>
                           <h5>Developer ID</h5>
-                          <div style={{cursor: "pointer"}}>
-                            <TextInput disabled={true} icon="content_copy" value={userSession.loadUserData().username} />
+                          <div>
+                            <p>{userSession.isUserSignedIn() ? userSession.loadUserData().username : ""}</p> 
                           </div>
                           <h5>API Key</h5>
-                          <div style={{cursor: "pointer"}}>
-                            <TextInput disabled={true} icon="content_copy" value={userSession.loadUserData().devConfig.apiKey} />
+                          <div>
+                            <p>{userSession.isUserSignedIn() ? userSession.loadUserData().apiKey : ""}</p>
                           </div>
-                          <button onClick={newKey} className="btn black">Generate New Key</button>
+                          {/*<button onClick={newKey} className="btn black">Generate New Key</button>*/}
                         </Modal>
                         <br/>
                         <Modal className="black-text" header={`Delete ${proj.name}?`} trigger={<button style={{marginTop: "20px"}} className="link-button red-text">Delete Project</button>}>
