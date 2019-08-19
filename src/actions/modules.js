@@ -44,7 +44,7 @@ export async function saveModules() {
     userId: userSession.loadUserData().username,
     username: userSession.loadUserData().username,
     config, 
-    development: true, 
+    development: process.env.NODE_ENV === "production" ? false : true, 
     apiKey: userSession.loadUserData().devConfig.apiKey
   }
   console.log(updates);
