@@ -73,7 +73,11 @@ class SignUp extends React.Component {
 
         <hr />
         <div className="black-text bottom text-center">
-          <span className="note">Signing up signifies you have read and agree to the <a href="https://simpleid.xyz">Terms of Service</a> and <a href="https://simpleid.xyz">Privacy Policy</a>.</span>
+          <Amplitude>
+            {({ logEvent }) =>
+              <span className="note">Signing up signifies you have read and agree to the <a onClick={() => { logEvent('TOS Clicked') }} href="https://simpleid.xyz">Terms of Service</a> and <a onClick={() => { logEvent('Privacy Clicked') }} href="https://simpleid.xyz">Privacy Policy</a>.</span>
+            }
+          </Amplitude>
           <hr />
           Already have an account? <button className="link-button" onClick={() => this.props.switchScreen("login")}><b>Sign In</b></button>
         </div>
