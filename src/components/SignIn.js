@@ -2,6 +2,8 @@ import React from 'reactn';
 import { handleSignIn } from '../actions/account';
 import loginButton from '../assets/img/loginButton.png';
 
+import { Amplitude } from "@amplitude/react-amplitude";
+
 class SignIn extends React.Component {
   handleCorsTest(e)
   {
@@ -77,11 +79,24 @@ class SignIn extends React.Component {
 
             <div className="form-group">
               {
-                loading ? 
-                <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Logging in...</button> : 
-                <button id="reg_submit" name="submit" value="1" className="link-button"><img className="loginButton" src={loginButton} alt="login" /></button>
+                loading ?
+                <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Logging in...</button> :
+                (
+                  <Amplitude>
+                    {({ logEvent }) =>
+                      <button
+                        onClick={() => { logEvent('Sign In Clicked') }}
+                        id="reg_submit"
+                        name="submit"
+                        value="1"
+                        className="link-button">
+                        <img className="loginButton" src={loginButton} alt="login" />
+                      </button>
+                    }
+                  </Amplitude>
+                )
               }
-              
+
             </div>
           </form>
 

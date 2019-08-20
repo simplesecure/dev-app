@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "dotenv": "^8.0.0",
+    "@amplitude/react-amplitude": "^1.0.0",
+    "amplitude-js": "<=5.2.2",
     "jsontokens": "^2.0.2",
     "materialize-css": "^1.0.0-rc.2",
+    "query-string": "^6.8.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-materialize": "^3.3.4",

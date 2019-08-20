@@ -2,6 +2,9 @@ import React, { setGlobal } from 'reactn';
 import SignIn from '../components/SignIn';
 import SignUp from '../components/SignUp';
 
+// TODO: instrument link to contact support below
+import { Amplitude } from "@amplitude/react-amplitude";
+
 class Login extends React.Component {
   componentDidMount() {
     const { userSession } = this.global;
@@ -30,28 +33,28 @@ class Login extends React.Component {
                   screen === "login" ?
                   <div>
                     <div className="card-header black-text">Login</div>
-                    <SignIn 
+                    <SignIn
                       screen={screen}
                       switchScreen={this.switchScreen}
                     />
-                  </div> : 
-                  screen === "verification" ? 
+                  </div> :
+                  screen === "verification" ?
                   <div className="black-text">
                     <div className="card-header">Verify Your Account</div>
                     <p>An email was sent to the email address you provided. Once, you click the link in the email, your account will be verified and ready to use.</p>
                     <hr />
                     <p>If you have any trouble receiving the link or verifying your account, please contact our <a href="https://simpleid.xyz">support team</a>.</p>
-                  </div> : 
+                  </div> :
                   <div>
                     <div className="card-header black-text">Sign Up</div>
                     <p className="black-text">Create a new account by completing the form below.</p>
-                    <SignUp 
+                    <SignUp
                       screen={screen}
                       switchScreen={this.switchScreen}
                     />
                   </div>
                 }
-                
+
               </div>
             </div>
           </div>
