@@ -23,7 +23,7 @@ setGlobal({
     storage: []
   }, 
   loading: false, 
-  isUpgraded: true
+  isUpgraded: false
 });
 ReactDOM.render(<App />, document.getElementById('root'));
 
