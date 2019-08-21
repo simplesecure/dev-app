@@ -46,7 +46,7 @@ class SignUp extends React.Component {
             <div className="form-group">
               {
                 loading ?
-                <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Regemail: document.getElementById('email-input-signup').valueistering Account...</button> :
+                <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Registering Account...</button> :
                 (
                   <Amplitude
                     eventProperties={this.getSignupEventProperties}>
