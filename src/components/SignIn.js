@@ -73,7 +73,7 @@ class SignIn extends React.Component {
               <div className="help-block text-right">
                 <Amplitude>
                   {({ logEvent }) =>
-                    <small><a onClick={() => { logEvent('Forgot Password Clicked') }} href="https://simpleid.xyz">Forgot Password</a></small>
+                    <small><a onClick={() => { logEvent('Forgot Password Clicked') }} href="mailto:hello@simpleid.xyz">Forgot Password</a></small>
                   }
                 </Amplitude>
               </div>

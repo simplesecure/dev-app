@@ -75,7 +75,7 @@ class SignUp extends React.Component {
         <div className="black-text bottom text-center">
           <Amplitude>
             {({ logEvent }) =>
-              <span className="note">Signing up signifies you have read and agree to the <a onClick={() => { logEvent('TOS Clicked') }} href="https://simpleid.xyz">Terms of Service</a> and <a onClick={() => { logEvent('Privacy Clicked') }} href="https://simpleid.xyz">Privacy Policy</a>.</span>
+              <span className="note">Signing up signifies you have read and agree to the <a onClick={() => { logEvent('TOS Clicked') }} href="https://www.termsfeed.com/terms-conditions/b13d80e035b2e120f019f9d657067884" target='_blank'>Terms of Service</a> and <a onClick={() => { logEvent('Privacy Clicked') }} target='_blank' href="https://www.termsfeed.com/privacy-policy/3ef420f2df55bacbf56ef22223e07aa2">Privacy Policy</a>.</span>
             }
           </Amplitude>
           <hr />
