@@ -67,7 +67,7 @@ class Modules extends React.Component {
     } else {
       return (
         <div>
-          <h5>Choose Your Stroage Providers</h5>
+          <h5>Choose Your Storage Providers</h5>
           <div className="row">
             {
               storageProviders.map(prov => {
