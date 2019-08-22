@@ -16,7 +16,7 @@ class Modules extends React.Component {
   }
 
   renderModuleSelector() {
-    const { modules, isUpgraded } = this.global;
+    const { modules, isUpgraded, userCount } = this.global;
     const { moduleSelection } = this.state;
     if(moduleSelection === "auth") {
       return (
@@ -28,8 +28,8 @@ class Modules extends React.Component {
               authProviders.map(provider => {
                 const header = `${provider.name} Module Info`
                 return (
-                  <div onClick={provider.id !== "blockstack" ? isUpgraded !== true ? this.upgradeModal : () => addModule('auth', provider.id) : () => addModule('auth', provider.id)} style={{cursor: "pointer"}} key={provider.id} className="col s12 m6 l6">
-                    <div className={provider.id !== "blockstack" ? isUpgraded !== true ? "card-panel module-card grey small black-text" : "card-panel module-card small black-text" : "card-panel module-card small black-text"}>
+                  <div onClick={provider.id !== "blockstack" ? (userCount > 500 && isUpgraded !== true) ? this.upgradeModal : () => addModule('auth', provider.id) : () => addModule('auth', provider.id)} style={{cursor: "pointer"}} key={provider.id} className="col s12 m6 l6">
+                    <div className={provider.id !== "blockstack" ? (userCount > 500 && isUpgraded !== true) ? "card-panel module-card grey small black-text" : "card-panel module-card small black-text" : "card-panel module-card small black-text"}>
                       <Modal className="black-text" header={header} trigger={
                         <span className="module-info"><i className="material-icons">info</i></span>
                         }>
@@ -43,7 +43,7 @@ class Modules extends React.Component {
                           <div className="col s6">
                             <h6 className="module-name">{provider.name}</h6>
                             {
-                              provider.id !== "blockstack" ? isUpgraded !== true ? 
+                              provider.id !== "blockstack" ? (userCount > 500 && isUpgraded !== true) ? 
                               <span style={{fontSize: "12px", marginTop: "20px"}}>Upgrade to use this module</span> : 
                               <div /> : <div />
                             }
@@ -73,8 +73,8 @@ class Modules extends React.Component {
               storageProviders.map(prov => {
                 const header = `${prov.name} Module Info`
                 return (
-                  <div onClick={prov.id !== "blockstack" ? isUpgraded !== true ? this.upgradeModal : () => addModule('storage', prov.id) : () => addModule('storage', prov.id)} style={{cursor: "pointer"}} key={prov.id} className="col s12 m6 l6">
-                    <div className={prov.id !== "blockstack" ? isUpgraded !== true ? "card-panel module-card grey small black-text" : "card-panel module-card small black-text" : "card-panel module-card small black-text"}>
+                  <div onClick={prov.id !== "blockstack" ? (userCount > 500 && isUpgraded !== true) ? this.upgradeModal : () => addModule('storage', prov.id) : () => addModule('storage', prov.id)} style={{cursor: "pointer"}} key={prov.id} className="col s12 m6 l6">
+                    <div className={prov.id !== "blockstack" ? (userCount > 500 && isUpgraded !== true) ? "card-panel module-card grey small black-text" : "card-panel module-card small black-text" : "card-panel module-card small black-text"}>
                       <Modal className="black-text" header={header} trigger={
                         <span className="module-info"><i className="material-icons">info</i></span>
                         }>
@@ -88,7 +88,7 @@ class Modules extends React.Component {
                           <div className="col s6">
                             <h6 className="module-name">{prov.name}</h6>
                             {
-                              prov.id !== "blockstack" ? isUpgraded !== true ? 
+                              prov.id !== "blockstack" ? (userCount > 500 && isUpgraded !== true) ? 
                               <span style={{fontSize: "12px", marginTop: "20px"}}>Upgrade to use this module</span> : 
                               <div /> : <div />
                             }

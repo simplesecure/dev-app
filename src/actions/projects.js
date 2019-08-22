@@ -13,6 +13,7 @@ export async function createProject() {
   const projDetails = {
     id: projectKeys.uuid,
     name: document.getElementById('project-name-input').value, 
+    url: document.getElementById('project-url-input').value, 
     createdDate: getMonthDateYear(), 
     apiKey: projectKeys.apiKey
   }
@@ -22,9 +23,7 @@ export async function createProject() {
     let devData = JSON.parse(localStorage.getItem('blockstack-session'));
     devData.userData.devConfig.projects = projects;
     const config =  devData.userData.devConfig;
-    
-    localStorage.setItem('blockstack-session', JSON.stringify(devData));
-    console.log(config);
+  
     const updates = {
       userId: userSession.loadUserData().username,
       username: userSession.loadUserData().username,
@@ -32,22 +31,24 @@ export async function createProject() {
       development: process.env.NODE_ENV === "production" ? false : true, 
       apiKey: userSession.loadUserData().devConfig.apiKey
     }
-    console.log(updates);
     try {
       const update = await updateConfig(updates);
       console.log(update);
       setGlobal({ projects });
+      localStorage.setItem('blockstack-session', JSON.stringify(devData));
+      const modals = document.getElementsByClassName('modal-close');
+      for(const modal of modals) {
+        modal.click();
+      }
     } catch(err) {
       console.log(err);
+      //Need to read response and return the proper text here.
+      document.getElementById("project-error").innerText = "Problem creating project";
     }
   } else {
     return {
       message: "You need to upgrade your plan to do this"
     }
-  }
-  const modals = document.getElementsByClassName('modal-close');
-  for(const modal of modals) {
-    modal.click();
   }
 }
 
