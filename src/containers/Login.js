@@ -3,7 +3,7 @@ import SignIn from '../components/SignIn';
 import SignUp from '../components/SignUp';
 
 // TODO: instrument link to contact support below
-import { Amplitude } from "@amplitude/react-amplitude";
+//import { Amplitude } from "@amplitude/react-amplitude";
 
 class Login extends React.Component {
   componentDidMount() {

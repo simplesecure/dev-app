@@ -15,7 +15,8 @@ setGlobal({
   isSignedIn: userSession.isUserSignedIn() ? true : false, 
   userSession,
   isVerified: false,
-  screen: "login", 
+  userCount: 0,
+  screen: "signup", 
   moduleChanges: false, 
   projects: [],
   modules: {
