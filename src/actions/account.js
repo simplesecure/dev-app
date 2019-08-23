@@ -22,7 +22,7 @@ function validateEmail(email) {
 export async function handleSignUp(e) {
   document.getElementById('error-message').innerText = "";
   e.preventDefault();
-  //need to make sure usernames are all lowercase. 
+  //need to make sure usernames are all lowercase.
   const id = document.getElementById('username-input-signup').value.toLowerCase();
   const email = document.getElementById('email-input-signup').value;
 
@@ -65,8 +65,8 @@ export async function handleSignUp(e) {
 
 export async function handleSignIn(e) {
   e.preventDefault();
-  //need to make sure usernames are all lowercase. 
-  const id = document.getElementById('username-input-signup').value.toLowerCase();
+  //need to make sure usernames are all lowercase.
+  const id = document.getElementById('username-input-signin').value.toLowerCase();
   document.getElementById('sign-in-error').style.display = "none";
   setGlobal({ loading: true });
   const credObj = {
@@ -82,7 +82,7 @@ export async function handleSignIn(e) {
   try {
     const signIn = await login(params);
     console.log(signIn);
-    let authModules; 
+    let authModules;
 
     if(signIn.body.store.sessionData.userData.devConfig.authModules) {
       authModules = signIn.body.store.sessionData.userData.devConfig.authModules;
@@ -90,8 +90,8 @@ export async function handleSignIn(e) {
     } else {
       authModules = [];
     }
-    
-    let storageModules; 
+
+    let storageModules;
     let projects;
     if(signIn.body.store.sessionData.userData.devConfig.storageModules) {
       storageModules = signIn.body.store.sessionData.userData.devConfig.storageModules;
@@ -113,7 +113,7 @@ export async function handleSignIn(e) {
       await setGlobal({
         isVerified: true,
         isSignedIn: true,
-        modules: { auth: authModules || [], storage: storageModules || [] }, 
+        modules: { auth: authModules || [], storage: storageModules || [] },
         projects
       });
     } else {
@@ -177,7 +177,7 @@ export async function getUpdatedConfig() {
   const devConfig = await getConfig(params);
   let configObj = JSON.parse(devConfig.body).config;
   let userCount = JSON.parse(devConfig.body).numberUsers ? JSON.parse(devConfig.body).numberUsers : 0;
-  setGlobal({ 
+  setGlobal({
     userCount
   })
   let authModules = configObj.authModules;
