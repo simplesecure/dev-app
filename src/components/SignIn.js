@@ -1,7 +1,7 @@
 import React from 'reactn';
 import { handleSignIn } from '../actions/account';
 import loginButton from '../assets/img/loginButton.png';
-import Loading from './Loading';
+//import Loading from './Loading';
 
 import { Amplitude } from "@amplitude/react-amplitude";
 

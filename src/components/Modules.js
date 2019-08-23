@@ -28,8 +28,8 @@ class Modules extends React.Component {
               authProviders.map(provider => {
                 const header = `${provider.name} Module Info`
                 return (
-                  <div onClick={provider.id !== "blockstack" ? (userCount > 500 && isUpgraded !== true) ? this.upgradeModal : () => addModule('auth', provider.id) : () => addModule('auth', provider.id)} style={{cursor: "pointer"}} key={provider.id} className="col s12 m6 l6">
-                    <div className={provider.id !== "blockstack" ? (userCount > 500 && isUpgraded !== true) ? "card-panel module-card grey small black-text" : "card-panel module-card small black-text" : "card-panel module-card small black-text"}>
+                  <div onClick={() => addModule('auth', provider.id)} style={{cursor: "pointer"}} key={provider.id} className="col s12 m6 l6">
+                    <div className="card-panel module-card small black-text">
                       <Modal className="black-text" header={header} trigger={
                         <span className="module-info"><i className="material-icons">info</i></span>
                         }>
@@ -73,8 +73,8 @@ class Modules extends React.Component {
               storageProviders.map(prov => {
                 const header = `${prov.name} Module Info`
                 return (
-                  <div onClick={prov.id !== "blockstack" ? (userCount > 500 && isUpgraded !== true) ? this.upgradeModal : () => addModule('storage', prov.id) : () => addModule('storage', prov.id)} style={{cursor: "pointer"}} key={prov.id} className="col s12 m6 l6">
-                    <div className={prov.id !== "blockstack" ? (userCount > 500 && isUpgraded !== true) ? "card-panel module-card grey small black-text" : "card-panel module-card small black-text" : "card-panel module-card small black-text"}>
+                  <div onClick={() => addModule('storage', prov.id)} style={{cursor: "pointer"}} key={prov.id} className="col s12 m6 l6">
+                    <div className="card-panel module-card small black-text">
                       <Modal className="black-text" header={header} trigger={
                         <span className="module-info"><i className="material-icons">info</i></span>
                         }>

@@ -45,12 +45,19 @@ export async function createProject() {
         }
         try {
           const update = await updateConfig(updates);
-          console.log(update);
-          setGlobal({ projects });
-          localStorage.setItem('blockstack-session', JSON.stringify(devData));
-          const modals = document.getElementsByClassName('modal-close');
-          for(const modal of modals) {
-            modal.click();
+          if(update.message === "failed to update developer account") {
+            console.log(update);
+            //Need to read response and return the proper text here.
+            document.getElementById("project-error").innerText = update.body.error;
+          } else {
+            setGlobal({ projects });
+            localStorage.setItem('blockstack-session', JSON.stringify(devData));
+            const modals = document.getElementsByClassName('modal-close');
+            document.getElementById('project-name-input').value = "";
+            document.getElementById('project-url-input').value = "";
+            for(const modal of modals) {
+              modal.click();
+            }
           }
         } catch(err) {
           console.log(err);

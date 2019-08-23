@@ -28,7 +28,7 @@ class Account extends React.Component {
               {
                 (isUpgraded || (projects && projects.length < 1)) ?
                 <Modal className="black-text" header="Create New Project" trigger={<button className="btn btn-secondary">Create New Project</button>}>
-                  <p>All we need is a project name and a URL. If this is a mobile app, feel free to use the url format you use with iOS or Android.</p>
+                  <p>All we need is a project name and a URL. If this is a mobile app, you canuse your marketing site URL. All URLs must be https.</p>
                   <TextInput id="project-name-input" label="Project Name" />
                   <TextInput id="project-url-input" label="Project URL" />
                   <p className="red-text" id="project-error"></p>
