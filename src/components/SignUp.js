@@ -1,6 +1,7 @@
 import React from 'reactn';
 import { handleSignUp } from '../actions/account';
 import signupButton from '../assets/img/signupButton.png';
+import Loading from './Loading';
 
 import { Amplitude } from "@amplitude/react-amplitude";
 
@@ -46,7 +47,10 @@ class SignUp extends React.Component {
             <div className="form-group">
               {
                 loading ?
-                <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Registering Account...</button> :
+                <div>
+                  <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Registering Account...</button> 
+                  {/*<Loading />*/}
+                </div> :
                 (
                   <Amplitude
                     eventProperties={this.getSignupEventProperties}>
@@ -63,8 +67,9 @@ class SignUp extends React.Component {
                   </Amplitude>
                 )
               }
-
-              <span id="error-message" className="red-text"></span>
+              <div>
+                <span id="error-message" className="red-text"></span>
+              </div>
             </div>
 
           </form>
@@ -75,7 +80,7 @@ class SignUp extends React.Component {
         <div className="black-text bottom text-center">
           <Amplitude>
             {({ logEvent }) =>
-              <span className="note">Signing up signifies you have read and agree to the <a onClick={() => { logEvent('TOS Clicked') }} href="https://www.termsfeed.com/terms-conditions/b13d80e035b2e120f019f9d657067884" target='_blank'>Terms of Service</a> and <a onClick={() => { logEvent('Privacy Clicked') }} target='_blank' href="https://www.termsfeed.com/privacy-policy/3ef420f2df55bacbf56ef22223e07aa2">Privacy Policy</a>.</span>
+              <span className="note">Signing up signifies you have read and agree to the <a onClick={() => { logEvent('TOS Clicked') }} href="https://www.termsfeed.com/terms-conditions/b13d80e035b2e120f019f9d657067884" target='_blank' rel="noopener noreferrer">Terms of Service</a> and <a onClick={() => { logEvent('Privacy Clicked') }} target='_blank' href="https://www.termsfeed.com/privacy-policy/3ef420f2df55bacbf56ef22223e07aa2" rel="noopener noreferrer">Privacy Policy</a>.</span>
             }
           </Amplitude>
           <hr />

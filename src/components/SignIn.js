@@ -1,6 +1,7 @@
 import React from 'reactn';
 import { handleSignIn } from '../actions/account';
 import loginButton from '../assets/img/loginButton.png';
+import Loading from './Loading';
 
 import { Amplitude } from "@amplitude/react-amplitude";
 
@@ -84,7 +85,10 @@ class SignIn extends React.Component {
             <div className="form-group">
               {
                 loading ?
-                <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Logging in...</button> :
+                <div>
+                  <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Logging in...</button>
+                  {/*<Loading />*/}
+                </div> :
                 (
                   <Amplitude>
                     {({ logEvent }) =>
@@ -100,7 +104,9 @@ class SignIn extends React.Component {
                   </Amplitude>
                 )
               }
-
+              <div>
+                <span id="error-message" className="red-text"></span>
+              </div>
             </div>
           </form>
 

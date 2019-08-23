@@ -12,43 +12,65 @@ const config = {
   devId: "imanewdeveloper",
   development: process.env.NODE_ENV === "production" ? false : true
 }
+
+function validateEmail(email) {
+  // eslint-disable-next-line
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
 export async function handleSignUp(e) {
   document.getElementById('error-message').innerText = "";
   e.preventDefault();
-  setGlobal({ loading: true });
-  const credObj = {
-    id: document.getElementById('username-input-signup').value,
-    password: document.getElementById('password-input-signup').value,
-    hubUrl: "https://hub.blockstack.org",
-    email: document.getElementById('email-input-signup').value
-  }
-  try {
-    const account = await createUserAccount(credObj, config);
-    console.log(account);
-    if(account.message === "name taken") {
-      setGlobal({ loading: false });
-      document.getElementById('error-message').innerText = "Sorry, that name has already been registered";
+  //need to make sure usernames are all lowercase. 
+  const id = document.getElementById('username-input-signup').value.toLowerCase();
+  const email = document.getElementById('email-input-signup').value;
+
+  if(id.split(" ").length > 1) {
+    //This means the user has spaces in their username
+    document.getElementById('error-message').innerText = "Please make sure your username does not have spaces";
+  } else {
+    const validEmail = validateEmail(email);
+    if(validEmail) {
+      setGlobal({ loading: true });
+      const credObj = {
+        id,
+        password: document.getElementById('password-input-signup').value,
+        hubUrl: "https://hub.blockstack.org",
+        email
+      }
+      try {
+        const account = await createUserAccount(credObj, config);
+        console.log(account);
+        if(account.message === "name taken") {
+          setGlobal({ loading: false });
+          document.getElementById('error-message').innerText = "Sorry, that name has already been registered";
+        } else {
+          setGlobal({
+            screen: "verification"
+          });
+          localStorage.setItem('blockstack-session', JSON.stringify(account.body.store.sessionData))
+        }
+      } catch(err) {
+        console.log(err);
+        setGlobal({
+          screen: "login"
+        })
+      }
     } else {
-      setGlobal({
-        screen: "verification"
-      });
-      localStorage.setItem('blockstack-session', JSON.stringify(account.body.store.sessionData))
+      document.getElementById('error-message').innerText = "Please provide a valid email address";
     }
-  } catch(err) {
-    console.log(err);
-    setGlobal({
-      screen: "login"
-    })
   }
 }
 
 export async function handleSignIn(e) {
   e.preventDefault();
-  
+  //need to make sure usernames are all lowercase. 
+  const id = document.getElementById('username-input-signup').value.toLowerCase();
   document.getElementById('sign-in-error').style.display = "none";
   setGlobal({ loading: true });
   const credObj = {
-    id: document.getElementById('username-input-signin').value,
+    id,
     password: document.getElementById('password-input-signin').value,
     hubUrl: "https://hub.blockstack.org"
   }
@@ -154,6 +176,10 @@ export async function getUpdatedConfig() {
   }
   const devConfig = await getConfig(params);
   let configObj = JSON.parse(devConfig.body).config;
+  let userCount = JSON.parse(devConfig.body).numberUsers ? JSON.parse(devConfig.body).numberUsers : 0;
+  setGlobal({ 
+    userCount
+  })
   let authModules = configObj.authModules;
   // let authModStrings = authModules.split('[')[1].split(']')[0];
   // let authModArray = authModStrings.split(',');

@@ -4,52 +4,69 @@ import { updateConfig } from 'simpleid-js-sdk';
 const uuidAPIKey = require('uuid-apikey');
 
 export async function createProject() {
+  document.getElementById('project-error').innerText = "";
   const userSession = getGlobal().userSession;
   const isUpgraded = getGlobal().isUpgraded;
 
   const projectKeys = uuidAPIKey.create();
 
+  const name = document.getElementById('project-name-input').value;
+  const url = document.getElementById('project-url-input').value;
+
+  const nameCheck = name.length > 0 ? true : false;
+  const urlCheck = url.length > 5 && url.substring(0, 5) === "https" ? true : false;
+  
   let projects = getGlobal().projects;
   const projDetails = {
     id: projectKeys.uuid,
     devId: userSession.loadUserData().apiKey,
-    name: document.getElementById('project-name-input').value,
-    url: document.getElementById('project-url-input').value,
+    name,
+    url,
     createdDate: getMonthDateYear(),
     apiKey: projectKeys.apiKey
   }
 
-  if(projects.length < 1 || isUpgraded) {
-    projects.push(projDetails);
-    let devData = JSON.parse(localStorage.getItem('blockstack-session'));
-    devData.userData.devConfig.projects = projects;
-    const config =  devData.userData.devConfig;
+  //If no name supplied, reject
+  if(nameCheck) {
+    //If url is not https, reject
+    if(urlCheck) {
+      if(projects.length < 1 || isUpgraded) {
+        projects.push(projDetails);
+        let devData = JSON.parse(localStorage.getItem('blockstack-session'));
+        devData.userData.devConfig.projects = projects;
+        const config =  devData.userData.devConfig;
 
-    const updates = {
-      userId: userSession.loadUserData().username,
-      username: userSession.loadUserData().username,
-      config,
-      development: process.env.NODE_ENV === "production" ? false : true,
-      apiKey: userSession.loadUserData().devConfig.apiKey
-    }
-    try {
-      const update = await updateConfig(updates);
-      console.log(update);
-      setGlobal({ projects });
-      localStorage.setItem('blockstack-session', JSON.stringify(devData));
-      const modals = document.getElementsByClassName('modal-close');
-      for(const modal of modals) {
-        modal.click();
+        const updates = {
+          userId: userSession.loadUserData().username,
+          username: userSession.loadUserData().username,
+          config,
+          development: process.env.NODE_ENV === "production" ? false : true,
+          apiKey: userSession.loadUserData().devConfig.apiKey
+        }
+        try {
+          const update = await updateConfig(updates);
+          console.log(update);
+          setGlobal({ projects });
+          localStorage.setItem('blockstack-session', JSON.stringify(devData));
+          const modals = document.getElementsByClassName('modal-close');
+          for(const modal of modals) {
+            modal.click();
+          }
+        } catch(err) {
+          console.log(err);
+          //Need to read response and return the proper text here.
+          document.getElementById("project-error").innerText = "Project URL is already in use";
+        }
+      } else {
+        return {
+          message: "You need to upgrade your plan to do this"
+        }
       }
-    } catch(err) {
-      console.log(err);
-      //Need to read response and return the proper text here.
-      document.getElementById("project-error").innerText = "Problem creating project";
+    } else {
+      document.getElementById('project-error').innerText = "Please make sure your project uses 'https'";
     }
   } else {
-    return {
-      message: "You need to upgrade your plan to do this"
-    }
+    document.getElementById('project-error').innerText = "Please make sure your project has a name";
   }
 }
 

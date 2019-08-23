@@ -23,6 +23,8 @@ class Projects extends React.Component {
                         <Modal className="black-text" header={proj.name} trigger={<button className="btn btn-primary">View Project</button>}>
                           <h5>Project Created: </h5>
                           <p>{proj.createdDate}</p>
+                          <h5>Project URL:</h5>
+                          <p>{proj.url}</p>
                           <h5>Developer ID</h5>
                           <div>
                             <p>{userSession.isUserSignedIn() ? userSession.loadUserData().username : ""}</p> 

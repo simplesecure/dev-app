@@ -11,7 +11,6 @@ class Stats extends React.Component{
     const tokenData = decodeToken(token);
     console.log(tokenData);
     if(tokenData.payload.verificationID) {
-      console.log("doing it")
       const verified = await verifyAccount(tokenData.payload.verificationID);
       console.log(verified);
       if(verified.message === "updated developer account") {
