@@ -12,23 +12,24 @@ export async function createProject() {
   let projects = getGlobal().projects;
   const projDetails = {
     id: projectKeys.uuid,
-    name: document.getElementById('project-name-input').value, 
-    url: document.getElementById('project-url-input').value, 
-    createdDate: getMonthDateYear(), 
+    devId: userSession.loadUserData().apiKey,
+    name: document.getElementById('project-name-input').value,
+    url: document.getElementById('project-url-input').value,
+    createdDate: getMonthDateYear(),
     apiKey: projectKeys.apiKey
   }
-  
+
   if(projects.length < 1 || isUpgraded) {
     projects.push(projDetails);
     let devData = JSON.parse(localStorage.getItem('blockstack-session'));
     devData.userData.devConfig.projects = projects;
     const config =  devData.userData.devConfig;
-  
+
     const updates = {
       userId: userSession.loadUserData().username,
       username: userSession.loadUserData().username,
-      config, 
-      development: process.env.NODE_ENV === "production" ? false : true, 
+      config,
+      development: process.env.NODE_ENV === "production" ? false : true,
       apiKey: userSession.loadUserData().devConfig.apiKey
     }
     try {
@@ -69,8 +70,8 @@ export async function deleteProject(id) {
   const updates = {
     userId: userSession.loadUserData().username,
     username: userSession.loadUserData().username,
-    config, 
-    development: process.env.NODE_ENV === "production" ? false : true, 
+    config,
+    development: process.env.NODE_ENV === "production" ? false : true,
     apiKey: userSession.loadUserData().devConfig.apiKey
   }
   console.log(updates);

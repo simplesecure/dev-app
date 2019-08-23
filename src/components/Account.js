@@ -26,7 +26,7 @@ class Account extends React.Component {
             </div>
             <div className="col s12 m6">
               {
-                isUpgraded || projects.length < 1 ?
+                (isUpgraded || (projects && projects.length < 1)) ?
                 <Modal className="black-text" header="Create New Project" trigger={<button className="btn btn-secondary">Create New Project</button>}>
                   <p>All we need is a project name and a URL. If this is a mobile app, feel free to use the url format you use with iOS or Android.</p>
                   <TextInput id="project-name-input" label="Project Name" />
