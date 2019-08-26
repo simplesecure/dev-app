@@ -1,5 +1,6 @@
 import { getMonthDateYear } from './misc';
 import { getGlobal, setGlobal } from "reactn";
+import { getUpdatedConfig } from './account';
 import { updateConfig } from 'simpleid-js-sdk';
 const uuidAPIKey = require('uuid-apikey');
 
@@ -16,7 +17,7 @@ export async function createProject() {
   const nameCheck = name.length > 0 ? true : false;
   const urlCheck = url.length > 5 && url.substring(0, 5) === "https" ? true : false;
   
-  let projects = getGlobal().projects;
+  let projects = await getGlobal().projects;
   const projDetails = {
     id: projectKeys.uuid,
     devId: userSession.loadUserData().apiKey,
@@ -25,7 +26,6 @@ export async function createProject() {
     createdDate: getMonthDateYear(),
     apiKey: projectKeys.apiKey
   }
-
   //If no name supplied, reject
   if(nameCheck) {
     //If url is not https, reject
@@ -46,9 +46,10 @@ export async function createProject() {
         try {
           const update = await updateConfig(updates);
           if(update.message === "failed to update developer account") {
-            console.log(update);
             //Need to read response and return the proper text here.
             document.getElementById("project-error").innerText = update.body.error;
+            await getUpdatedConfig();
+            await setGlobal({ projects: userSession.loadUserData().devConfig.projects || [] });
           } else {
             setGlobal({ projects });
             localStorage.setItem('blockstack-session', JSON.stringify(devData));
