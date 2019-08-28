@@ -16,7 +16,7 @@ export async function createProject() {
 
   const nameCheck = name.length > 0 ? true : false;
   const urlCheck = url.length > 5 && url.substring(0, 5) === "https" ? true : false;
-  
+
   let projects = await getGlobal().projects;
   const projDetails = {
     id: projectKeys.uuid,
@@ -63,7 +63,7 @@ export async function createProject() {
         } catch(err) {
           console.log(err);
           //Need to read response and return the proper text here.
-          document.getElementById("project-error").innerText = "Project URL is already in use";
+          // document.getElementById("project-error").innerText = "Project URL is already in use";
         }
       } else {
         return {
