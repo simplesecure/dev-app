@@ -10,7 +10,11 @@ class Login extends React.Component {
     const { userSession } = this.global;
     if(userSession.isUserSignedIn()) {
       if(userSession.loadUserData().devConfig.isVerified !==true) {
-        setGlobal({screen: "verification"});
+        if(window.location.href.includes('verify')){
+          window.location.reload();
+        } else {
+          setGlobal({screen: "verification"});
+        }
       }
     }
   }
