@@ -42,7 +42,8 @@ export async function handleSignUp(e) {
       try {
         const account = await createUserAccount(credObj, config);
         console.log(account);
-        if(account.message === "name taken") {
+        if(account.message === "name taken" ||
+           (account.message && account.message.message && account.message.message.includes('Username already exists')) ) {
           setGlobal({ loading: false });
           document.getElementById('error-message').innerText = "Sorry, that name has already been registered";
         } else {
