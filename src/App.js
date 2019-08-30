@@ -26,8 +26,13 @@ class App extends React.Component {
     this.queryParams = {}
     try {
       const parsed = queryString.parse(window.location.search)
-      if (parsed && parsed.t) {
-        this.queryParams['tCode'] = parsed.t
+      if (parsed) {
+        if (parsed.t) {
+          this.queryParams['tCode'] = parsed.t
+        }
+        if (parsed.e) {
+          this.queryParams['embed'] = parsed.e
+        }
       }
     } catch (suppressedError) {
       console.log(`App:ctor:suppressedError = ${suppressedError}`)
@@ -55,8 +60,10 @@ class App extends React.Component {
       }
     }
   }
+
   render() {
     const { isSignedIn } = this.global;
+
     return (
       <div>
         <AmplitudeProvider

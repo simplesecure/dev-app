@@ -24,20 +24,19 @@ class SignUp extends React.Component {
           <form onSubmit={handleSignUp} id="login-nav" method="post" className="form" acceptCharset="UTF-8">
 
             <div className="form-group">
-              <label className="sr-only">Username</label>
+              {/* <label className="sr-only">Username</label> */}
               <input type="text" id="username-input-signup" name="user_name" className="form-control"
                     placeholder="Username" required />
             </div>
 
             <div className="form-group">
-              <label className="sr-only">Email</label>
+              {/* <label className="sr-only">Email</label> */}
               <input type="text" id="email-input-signup" name="email" className="form-control"
                     placeholder="Email" required />
             </div>
 
             <div className="form-group">
-              <label className="sr-only">Password</label>
-
+              {/* <label className="sr-only">Password</label> */}
               <div className="input-group">
                 <input type="password" id="password-input-signup" name="user_password" className="form-control" data-placement="bottom" data-toggle="popover" data-container="body"
                       data-html="true" placeholder="Password" required />
@@ -45,11 +44,18 @@ class SignUp extends React.Component {
             </div>
 
             <div className="form-group">
+              <div>
+                <span id="error-message" className="red-text"></span>
+              </div>
               {
                 loading ?
                 <div>
-                  <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Registering Account...</button> 
+                  <div className="card-header blue-text text-darken-2" style={{marginTop:20}}><h6>Creating Account...</h6></div>
+                  {/* <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary" style={{marginTop:20}}>Registering Account...</button> */}
                   {/*<Loading />*/}
+                  <div className="progress">
+                    <div className="indeterminate"></div>
+                  </div>
                 </div> :
                 (
                   <Amplitude
@@ -67,9 +73,6 @@ class SignUp extends React.Component {
                   </Amplitude>
                 )
               }
-              <div>
-                <span id="error-message" className="red-text"></span>
-              </div>
             </div>
 
           </form>
@@ -84,7 +87,7 @@ class SignUp extends React.Component {
             }
           </Amplitude>
           <hr />
-          Already have an account? <button className="link-button" onClick={() => this.props.switchScreen("login")}><b>Sign In</b></button>
+          Have an account? <button className="link-button" onClick={() => this.props.switchScreen("login")}><b>Sign-In</b></button>
         </div>
       </div>
     );

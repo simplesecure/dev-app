@@ -54,16 +54,13 @@ class SignIn extends React.Component {
           <form onSubmit={handleSignIn} id="login-nav" method="post" className="form" acceptCharset="UTF-8">
 
             <div className="form-group">
-              <label className="sr-only">Username</label>
+              {/* <label className="sr-only">Username</label> */}
               <input type="text" id="username-input-signin" name="user_name" className="form-control"
                     placeholder="Username" required />
             </div>
 
             <div className="form-group">
-
-
-              <label className="sr-only">Password</label>
-
+              {/* <label className="sr-only">Password</label> */}
               <div className="input-group">
                 <input type="password" id="password-input-signin" name="user_password" className="form-control" data-placement="bottom" data-toggle="popover" data-container="body"
                       data-html="true" placeholder="Password" required />
@@ -86,8 +83,12 @@ class SignIn extends React.Component {
               {
                 loading ?
                 <div>
-                  <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary">Logging in...</button>
+                  <div className="card-header blue-text text-darken-2" style={{marginTop:20}}><h6>Signing In...</h6></div>
+                  {/* <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary" style={{marginTop:20}}>Logging in...</button> */}
                   {/*<Loading />*/}
+                  <div className="progress">
+                    <div className="indeterminate"></div>
+                  </div>
                 </div> :
                 (
                   <Amplitude>
@@ -115,7 +116,7 @@ class SignIn extends React.Component {
 
         <hr />
         <div className="black-text bottom text-center">
-          Need to sign up? <button className="link-button" onClick={() => this.props.switchScreen("register")}><b>Register</b></button>
+          No account yet? <button className="link-button" onClick={() => this.props.switchScreen("register")}><b>Sign-Up</b></button>
         </div>
       </div>
     );

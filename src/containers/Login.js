@@ -32,11 +32,12 @@ class Login extends React.Component {
           <div className="row">
             <div className="col-md-4"></div>
             <div className="col-md-5">
-              <div className="card cardbox">
+              <div className="card cardbox" style={{minWidth:290}}>
                 {
                   screen === "login" ?
-                  <div>
-                    <div className="card-header black-text">Login</div>
+                  <div style={{minWidth:200}}>
+                    <div className="card-header black-text"><h5>SimpleID Sign-In Demo</h5></div>
+                    <p className="black-text">Sign-In to this demo App using SimpleID by completing the form below.</p>
                     <SignIn
                       screen={screen}
                       switchScreen={this.switchScreen}
@@ -50,8 +51,8 @@ class Login extends React.Component {
                     <p>If you have any trouble receiving the link or verifying your account, please contact our <a href="https://simpleid.xyz">support team</a>.</p>
                   </div> :
                   <div>
-                    <div className="card-header black-text">Sign Up</div>
-                    <p className="black-text">Create a new account by completing the form below.</p>
+                    <div className="card-header black-text"><h5>SimpleID Sign-Up Demo</h5></div>
+                    <p className="black-text">Create a new account for this demo App using SimpleID by completing the form below.</p>
                     <SignUp
                       screen={screen}
                       switchScreen={this.switchScreen}
