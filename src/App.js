@@ -2,6 +2,7 @@ import React, { setGlobal } from 'reactn';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { getUpdatedConfig } from './actions/account';
 import Home from './containers/Home';
+import Login from './containers/Login';
 import Stats from './components/Stats';
 import Modules from './components/Modules';
 import Account from './components/Account';
@@ -12,12 +13,11 @@ import './App.css';
 
 import queryString from 'query-string'
 import amplitude from "amplitude-js";
-import { AmplitudeProvider, LogOnMount, } from "@amplitude/react-amplitude";
+import { AmplitudeProvider, Amplitude, LogOnMount, } from "@amplitude/react-amplitude";
 
 const AMPLITUDE_KEY = (process.env.NODE_ENV === 'development') ?
   process.env.REACT_APP_AMPLITUDE_DEVELOPMENT_API :
   process.env.REACT_APP_AMPLITUDE_PRODUCTION_API
-
 
 class App extends React.Component {
   constructor() {
@@ -30,6 +30,9 @@ class App extends React.Component {
         if (parsed.t) {
           this.queryParams['tCode'] = parsed.t
         }
+        if (parsed.s) {
+          this.queryParams['sCode'] = parsed.s
+        }
         if (parsed.e) {
           this.queryParams['embed'] = parsed.e
         }
@@ -37,6 +40,8 @@ class App extends React.Component {
     } catch (suppressedError) {
       console.log(`App:ctor:suppressedError = ${suppressedError}`)
     }
+
+    setGlobal({ queryParams: this.queryParams })
   }
 
   componentDidMount() {
@@ -61,17 +66,30 @@ class App extends React.Component {
     }
   }
 
-  render() {
-    const { isSignedIn } = this.global;
-
+  renderEmbeddedComponent(isSignedIn) {
     return (
       <div>
         <AmplitudeProvider
           amplitudeInstance={amplitude.getInstance()}
           apiKey={AMPLITUDE_KEY}>
-          <LogOnMount
-            eventProperties={this.queryParams}
-            eventType="SimpleId Loaded" />
+          <Amplitude userProperties={this.queryParams}>
+            <LogOnMount eventType="app.simpleid.xyz loaded embedded." />
+          </Amplitude>
+            { isSignedIn ? <div>TODO</div> : <Login /> }
+        </AmplitudeProvider>
+      </div>
+    )
+  }
+
+  renderFullSite(isSignedIn) {
+    return (
+      <div style={{height:'100vh', backgroundColor:'#003dff'}}>
+        <AmplitudeProvider
+          amplitudeInstance={amplitude.getInstance()}
+          apiKey={AMPLITUDE_KEY}>
+          <Amplitude userProperties={this.queryParams}>
+            <LogOnMount eventType="app.simpleid.xyz loaded." />
+          </Amplitude>
           <BrowserRouter>
             <div>
               <NavBar />
@@ -90,8 +108,21 @@ class App extends React.Component {
           </BrowserRouter>
         </AmplitudeProvider>
       </div>
-    );
+    )
   }
+
+  render() {
+    const { isSignedIn } = this.global;
+
+    if (this.queryParams &&
+        this.queryParams.hasOwnProperty('embed') &&
+        this.queryParams.embed === '1') {
+      return this.renderEmbeddedComponent(isSignedIn)
+    }
+
+    return this.renderFullSite(isSignedIn)
+  }
+
 }
 
 export default App;

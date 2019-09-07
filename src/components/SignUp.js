@@ -6,6 +6,15 @@ import signupButton from '../assets/img/signupButton.png';
 import { Amplitude } from "@amplitude/react-amplitude";
 
 class SignUp extends React.Component {
+  constructor(props) {
+    super()
+
+    this.hideSwitch = false
+    try {
+      this.hideSwitch = props.hideSwitch
+    } catch (suppressedError) {}
+  }
+
   getSignupEventProperties = (inheritedProperties) => {
     try {
       const email = document.getElementById('email-input-signup').value
@@ -17,6 +26,12 @@ class SignUp extends React.Component {
 
   render() {
     const { loading } = this.global;
+
+    const switchPrompt = (!this.hideSwitch) ?
+      ( <div><hr />Have an account? <button className="link-button" onClick={() => this.props.switchScreen("login")}><b>Sign-In</b></button></div> ) :
+      undefined
+
+
     return (
       <div className="card-body black-text">
         <div className="form-group">
@@ -86,8 +101,7 @@ class SignUp extends React.Component {
               <span className="note">Signing up signifies you have read and agree to the <a onClick={() => { logEvent('TOS Clicked') }} href="https://www.termsfeed.com/terms-conditions/b13d80e035b2e120f019f9d657067884" target='_blank' rel="noopener noreferrer">Terms of Service</a> and <a onClick={() => { logEvent('Privacy Clicked') }} target='_blank' href="https://www.termsfeed.com/privacy-policy/3ef420f2df55bacbf56ef22223e07aa2" rel="noopener noreferrer">Privacy Policy</a>.</span>
             }
           </Amplitude>
-          <hr />
-          Have an account? <button className="link-button" onClick={() => this.props.switchScreen("login")}><b>Sign-In</b></button>
+          {switchPrompt}
         </div>
       </div>
     );
