@@ -143,11 +143,11 @@ a {
     background-color:rgba(255,255,255,.8);
 }
 #login-dp .help-block{
-    font-size:12px    
+    font-size:12px
 }
 
 #login-dp .social-buttons{
-    margin:12px 0    
+    margin:12px 0
 }
 #login-dp .social-buttons a{
     width: 49%;
@@ -161,7 +161,7 @@ a {
 }
 .btn-fb:hover{
     color: #fff;
-    background-color:#496ebc 
+    background-color:#496ebc
 }
 .btn-tw{
     color: #fff;
@@ -175,6 +175,13 @@ a {
   padding: 45px;
   max-width: 40%;
   margin: auto;
+}
+.cardbox-lg {
+	padding: 25px;
+	max-width: 400px;
+	margin: auto;
+	min-width: 290px;
+	min-height: 535px;
 }
 
 .btn-primary {
@@ -194,7 +201,3 @@ a {
         border-top:0 none;
     }
 }
-
-
-
-

@@ -19,6 +19,11 @@ const AMPLITUDE_KEY = (process.env.NODE_ENV === 'development') ?
   process.env.REACT_APP_AMPLITUDE_DEVELOPMENT_API :
   process.env.REACT_APP_AMPLITUDE_PRODUCTION_API
 
+const ADMIN_APP_URL = (process.env.NODE_ENV === 'development') ?
+  'http://localhost:3003' :
+  'https://app.simpleid.xyz/?t=admin_embed'
+
+
 class App extends React.Component {
   constructor() {
     super()
@@ -66,6 +71,21 @@ class App extends React.Component {
     }
   }
 
+  renderEmbeddedSignedInCard() {
+    {/* <div className="card cardbox" style={{minWidth:290, minHeight:535}}> */}
+
+    return (
+      <div className="card cardbox-lg">
+        <div style={{minWidth:200}}>
+          <div className="card-header black-text"><h4><b>Excellent - looks you already got started!</b></h4></div>
+          <h5 className="black-text">Your account is signed in.</h5>
+          <hr />
+          <h5 className="black-text">To see your account details, click here: <a href={ADMIN_APP_URL} target='_parent'>app.simpleid.xyz</a></h5>
+        </div>
+      </div>
+    )
+  }
+
   renderEmbeddedComponent(isSignedIn) {
     return (
       <div>
@@ -75,7 +95,7 @@ class App extends React.Component {
           <Amplitude userProperties={this.queryParams}>
             <LogOnMount eventType="app.simpleid.xyz loaded embedded." />
           </Amplitude>
-            { isSignedIn ? <div>TODO</div> : <Login /> }
+            { isSignedIn ? this.renderEmbeddedSignedInCard() : <Login /> }
         </AmplitudeProvider>
       </div>
     )

@@ -28,31 +28,39 @@ class Login extends React.Component {
 
   renderCard(screen, embedComponent=false) {
     let content = (
-      <div>
-        <div className="card-header black-text"><h5>Sign-Up</h5></div>
-        <p className="black-text">Create a new account by completing the form below.</p>
+      <div style={{minWidth:200}}>
+        <div className="card-header black-text"><h4><b>Sign-Up</b></h4></div>
+        <h5 className="black-text">Create a new account by completing the form below.</h5>
         <SignUp hideSwitch={embedComponent} screen={screen} switchScreen={this.switchScreen} />
       </div> )
 
     if ((screen === 'login') && !embedComponent) {
       content = (
         <div style={{minWidth:200}}>
-          <div className="card-header black-text"><h5>Sign-In</h5></div>
-          <p className="black-text">Sign-In by completing the form below.</p>
+          <div className="card-header black-text"><h4><b>Sign-In</b></h4></div>
+          <h5 className="black-text">Sign-In by completing the form below.</h5>
           <SignIn screen={screen} switchScreen={this.switchScreen} />
         </div> )
     } else if (screen === 'verification') {
+
+      // TODO: talk to Justin about how to get the account name (it's not in user session)
+      let accountName = ''
+      // try {
+      //   accountName = this.global.
+      // } catch (suppressedError) {}
+
+      let mailHref = `mailto:hello@simpleid.xyz?subject=Help%20verifying%20account%20${accountName}`
       content = (
-        <div className="black-text">
-          <div className="card-header">Verify Your Account</div>
-          <p>An email was sent to the email address you provided. Once, you click the link in the email, your account will be verified and ready to use.</p>
+        <div style={{minWidth:200}}>
+          <div className="card-header black-text"><h4><b>Verify Your Account</b></h4></div>
+          <h5 className="black-text">An email was sent to the email address you provided. Once, you click the link in the email, your account will be verified and ready to use.</h5>
           <hr />
-          <p>If you have any trouble receiving the link or verifying your account, please contact our <a href="https://simpleid.xyz">support team</a>.</p>
+          <h5 className="black-text">If you have trouble receiving the link or verifying your account, please contact our support team at <a href={mailHref}><i>hello@simpleid.xyz</i></a>.</h5>
         </div> )
     }
 
     return (
-      <div className="card cardbox" style={{minWidth:290, minHeight:535}}>
+      <div className="card cardbox-lg">
         { content }
       </div>
     )
