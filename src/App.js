@@ -14,6 +14,7 @@ import './App.css';
 import queryString from 'query-string'
 import amplitude from "amplitude-js";
 import { AmplitudeProvider, Amplitude, LogOnMount, } from "@amplitude/react-amplitude";
+import AmplitudeHelper from './AmplitudeHelper';
 
 const AMPLITUDE_KEY = (process.env.NODE_ENV === 'development') ?
   process.env.REACT_APP_AMPLITUDE_DEVELOPMENT_API :
@@ -46,7 +47,12 @@ class App extends React.Component {
       console.log(`App:ctor:suppressedError = ${suppressedError}`)
     }
 
-    setGlobal({ queryParams: this.queryParams })
+    this.amplitudeHelper = new AmplitudeHelper(this.queryParams, amplitude)
+
+    setGlobal({
+      queryParams: this.queryParams,
+      amplitudeHelper: this.amplitudeHelper
+    })
   }
 
   componentDidMount() {
@@ -72,8 +78,6 @@ class App extends React.Component {
   }
 
   renderEmbeddedSignedInCard() {
-    {/* <div className="card cardbox" style={{minWidth:290, minHeight:535}}> */}
-
     return (
       <div className="card cardbox-lg">
         <div style={{minWidth:200}}>
@@ -90,12 +94,14 @@ class App extends React.Component {
     return (
       <div>
         <AmplitudeProvider
-          amplitudeInstance={amplitude.getInstance()}
+          amplitudeInstance={this.amplitudeHelper.getInstance()}
           apiKey={AMPLITUDE_KEY}>
           <Amplitude userProperties={this.queryParams}>
-            <LogOnMount eventType="app.simpleid.xyz loaded embedded." />
+            <LogOnMount
+              eventType={this.amplitudeHelper.getEventName('Embedded Site Loaded')}
+              eventProperties={this.amplitudeHelper.getEventProperties()} />
           </Amplitude>
-            { isSignedIn ? this.renderEmbeddedSignedInCard() : <Login /> }
+          { isSignedIn ? this.renderEmbeddedSignedInCard() : <Login /> }
         </AmplitudeProvider>
       </div>
     )
@@ -105,10 +111,12 @@ class App extends React.Component {
     return (
       <div style={{height:'100vh', backgroundColor:'#003dff'}}>
         <AmplitudeProvider
-          amplitudeInstance={amplitude.getInstance()}
+          amplitudeInstance={this.amplitudeHelper.getInstance()}
           apiKey={AMPLITUDE_KEY}>
           <Amplitude userProperties={this.queryParams}>
-            <LogOnMount eventType="app.simpleid.xyz loaded." />
+            <LogOnMount
+              eventType={this.amplitudeHelper.getEventName('Site Loaded')}
+              eventProperties={this.amplitudeHelper.getEventProperties()} />
           </Amplitude>
           <BrowserRouter>
             <div>

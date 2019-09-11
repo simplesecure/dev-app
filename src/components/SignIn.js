@@ -37,7 +37,7 @@ class SignIn extends React.Component {
 
 
   render() {
-    const { loading } = this.global;
+    const { loading, amplitudeHelper } = this.global;
 
     const CORS_TEST_BUTTON = false
     let testCorsButton = (CORS_TEST_BUTTON) ?
@@ -69,9 +69,13 @@ class SignIn extends React.Component {
                 <p className="red-text">Trouble signing in, please check your username/password.</p>
               </div>
               <div className="help-block text-right">
-                <Amplitude>
+                <Amplitude
+                  eventProperties={amplitudeHelper.getEventProperties()}>
                   {({ logEvent }) =>
-                    <small><a onClick={() => { logEvent('Forgot Password Clicked') }} href="mailto:hello@simpleid.xyz">Forgot Password</a></small>
+                    <small>
+                      <a onClick={() => { logEvent(amplitudeHelper.getEventName('Forgot Password Clicked')) }}
+                         href="mailto:hello@simpleid.xyz">Forgot Password</a>
+                    </small>
                   }
                 </Amplitude>
               </div>
@@ -91,10 +95,11 @@ class SignIn extends React.Component {
                   </div>
                 </div> :
                 (
-                  <Amplitude>
+                  <Amplitude
+                    eventProperties={amplitudeHelper.getEventProperties()}>
                     {({ logEvent }) =>
                       <button
-                        onClick={() => { logEvent('Sign In Clicked') }}
+                        onClick={() => { logEvent(amplitudeHelper.getEventName('Sign In Clicked')) }}
                         id="reg_submit"
                         name="submit"
                         value="1"
