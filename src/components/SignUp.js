@@ -10,6 +10,16 @@ class SignUp extends React.Component {
     super()
 
     this.hideSwitch = false
+
+    this.indBgColorArrCount = 0
+    this.indBgColorArr = ['#FF4500', // OrangeRed
+                          '#9370DB', // MediumPurple
+                          '#4169E1', // RoyalBlue
+                          '#008080', // Teal
+                          '#2E8B57', // SeaGreen
+                          '#26a69a', // Default color of element
+                        ]
+
     try {
       this.hideSwitch = props.hideSwitch
     } catch (suppressedError) {}
@@ -25,7 +35,17 @@ class SignUp extends React.Component {
   }
 
   render() {
-    const { loading, amplitudeHelper } = this.global;
+    const { loading, loadingMessage, amplitudeHelper } = this.global;
+
+    // Iterate the color of the waiting indicator:
+    //
+    let indBgColor = this.indBgColorArr[this.indBgColorArrCount]
+    if (loading) {
+      this.indBgColorArrCount++
+      if (this.indBgColorArrCount >= this.indBgColorArr.length) {
+        this.indBgColorArrCount = 0
+      }
+    }
 
     const switchPrompt = (!this.hideSwitch) ?
       ( <div><hr />Have an account? <button className="link-button" onClick={() => this.props.switchScreen("login")}><b>Sign-In</b></button></div> ) :
@@ -65,11 +85,11 @@ class SignUp extends React.Component {
               {
                 loading ?
                 <div>
-                  <div className="card-header blue-text text-darken-2" style={{marginTop:20}}><h6>Creating Account...</h6></div>
+                  <div className="card-header blue-text text-darken-2" style={{marginTop:20}}><h5 style={{fontWeight:700, fontStyle:'italic', color:'#809eff'}}>{loadingMessage}</h5></div>
                   {/* <button id="reg_submit" name="submit" value="1" className="btn btn-block btn-primary" style={{marginTop:20}}>Registering Account...</button> */}
                   {/*<Loading />*/}
-                  <div className="progress">
-                    <div className="indeterminate"></div>
+                  <div className="progress" style={{backgroundColor:'rgba(0,0,0,0)'}}>
+                    <div className="indeterminate" style={{backgroundColor:indBgColor}}></div>
                   </div>
                 </div> :
                 (

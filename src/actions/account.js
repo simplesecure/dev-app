@@ -19,6 +19,10 @@ function validateEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
+function statusCallbackFn(aStatusMessage) {
+  setGlobal( { loading:true, loadingMessage:aStatusMessage } )
+}
+
 export async function handleSignUp(e) {
   document.getElementById('error-message').innerText = "";
   e.preventDefault();
@@ -32,7 +36,10 @@ export async function handleSignUp(e) {
   } else {
     const validEmail = validateEmail(email);
     if(validEmail) {
-      setGlobal({ loading: true });
+      setGlobal({
+        loading: true,
+        loadingMessage: 'Creating Account...'
+      });
       const credObj = {
         id,
         password: document.getElementById('password-input-signup').value,
@@ -40,11 +47,18 @@ export async function handleSignUp(e) {
         email
       }
       try {
-        const account = await createUserAccount(credObj, config);
+        const account = await createUserAccount(
+          credObj,
+          config,
+          { statusCallbackFn: statusCallbackFn }
+        );
         console.log(account);
         if(account.message === "name taken" ||
            (account.message && account.message.message && account.message.message.includes('Username already exists')) ) {
-          setGlobal({ loading: false });
+          setGlobal({
+            loading: false,
+            loadingMessage: 'Creating Account...'
+          });
           document.getElementById('error-message').innerText = "Sorry, that name has already been registered";
         } else {
           setGlobal({
