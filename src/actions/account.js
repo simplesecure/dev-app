@@ -140,6 +140,9 @@ export async function handleSignIn(e) {
     const appConfig = new AppConfig(['store_write', 'publish_data', 'email']);
     const userSession = new UserSession({ appConfig });
     setGlobal({ userSession });
+    if(window.location.href.includes("verify")) {
+      window.location.reload();
+    }
   } catch(err) {
     console.log(err);
     document.getElementById('sign-in-error').style.display = "block";
